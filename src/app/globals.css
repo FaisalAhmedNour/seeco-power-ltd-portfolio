@@ -1,0 +1,301 @@
+@import "tailwindcss";
+
+@theme {
+  --font-arone: var(--font-arone), sans-serif;
+  --font-kanit: var(--font-kanit), sans-serif;
+  --font-montserrat: var(--font-montserrat), sans-serif;
+  
+  --color-brand-red: #dc2626;
+  --color-brand-red-hover: #ff0000;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #111827;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--background);
+  color: var(--foreground);
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'AR One Sans', sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+}
+
+/* Hero zooming / panning animation */
+@keyframes heroScroll {
+  from {
+    object-position: center bottom;
+    transform: scale(1.04);
+  }
+  to {
+    object-position: center top;
+    transform: scale(1.04);
+  }
+}
+
+.hero-image-motion {
+  animation: heroScroll 10s linear infinite alternate;
+  object-position: center bottom;
+  transform-origin: center center;
+  will-change: object-position;
+}
+
+/* Vertical marquee scrolling keyframes */
+@keyframes scrollUp {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+
+.vertical-marquee {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.marquee-content {
+  display: flex;
+  flex-direction: column;
+  animation: scrollUp 30s linear infinite;
+}
+
+.marquee-item {
+  color: white;
+  font-size: 1rem;
+  padding: 1.5rem 1rem;
+  text-align: left;
+  opacity: 0.5;
+}
+
+/* Map animation styles */
+.er-map-container {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.er-map-wrapper {
+  position: relative;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.er-map-wrapper img {
+  width: 100%;
+  display: block;
+}
+
+.er-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.er-hotspot {
+  position: absolute;
+  transform: translate(-50%,-50%);
+  cursor: pointer;
+  z-index: 10;
+}
+
+.er-pulse-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(220,30,30,0.2);
+  animation: erPulse 3.2s ease-out infinite;
+}
+
+.er-pulse-ring.d1 {
+  animation-delay: 1.0s;
+}
+
+.er-pulse-ring.d2 {
+  animation-delay: 2.0s;
+}
+
+.er-dot {
+  width: 9px;
+  height: 9px;
+  background: #dc1e1e;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 0 7px rgba(220,30,30,0.9);
+  transition: transform .2s;
+}
+
+.er-hotspot:hover .er-dot {
+  transform: scale(1.5);
+  background: #fff;
+}
+
+.er-tooltip {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.88);
+  color: #dc1e1e;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  padding: 4px 10px;
+  border-radius: 5px;
+  border: 1px solid rgba(220,30,30,0.4);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .2s;
+  letter-spacing: .05em;
+}
+
+.er-hotspot:hover .er-tooltip {
+  opacity: 1;
+}
+
+.er-hotspot-turkey {
+  position: absolute;
+  transform: translate(-50%,-50%);
+  cursor: pointer;
+  z-index: 20;
+}
+
+.er-turkey-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  border-radius: 50%;
+  background: rgba(220,30,30,0.15);
+  animation: erTurkeyPulse 2.8s ease-out infinite;
+}
+
+.er-turkey-ring.r1 {
+  width: 48px;
+  height: 48px;
+  animation-delay: 0s;
+}
+
+.er-turkey-ring.r2 {
+  width: 64px;
+  height: 64px;
+  animation-delay: 0.9s;
+}
+
+.er-turkey-ring.r3 {
+  width: 80px;
+  height: 80px;
+  animation-delay: 1.8s;
+}
+
+.er-turkey-core {
+  width: 14px;
+  height: 14px;
+  background: #dc1e1e;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 0 14px rgba(220,30,30,1), 0 0 28px rgba(220,30,30,0.5);
+  animation: erTurkeyGlow 2.8s ease-in-out infinite;
+}
+
+.er-turkey-label {
+  position: absolute;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #dc1e1e;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+  padding: 3px 9px;
+  border-radius: 20px;
+  letter-spacing: .08em;
+  box-shadow: 0 2px 8px rgba(220,30,30,0.5);
+}
+
+@keyframes erTurkeyPulse {
+  0% {
+    opacity: .7;
+    transform: translate(-50%,-50%) scale(.3);
+  }
+  70% {
+    opacity: 0;
+    transform: translate(-50%,-50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes erTurkeyGlow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(220,30,30,0.9), 0 0 20px rgba(220,30,30,0.4);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(220,30,30,1), 0 0 40px rgba(220,30,30,0.7);
+  }
+}
+
+@keyframes erPulse {
+  0% {
+    opacity: .9;
+    transform: translate(-50%,-50%) scale(.3);
+  }
+  70% {
+    opacity: 0;
+    transform: translate(-50%,-50%) scale(2.4);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%,-50%) scale(2.6);
+  }
+}
+
+@keyframes erFadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 5px));
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}

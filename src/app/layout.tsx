@@ -1,0 +1,58 @@
+import type { Metadata } from "next";
+import { AR_One_Sans, Kanit, Montserrat } from "next/font/google";
+import "./globals.css";
+
+// Configure the AR One Sans font
+const arOneSansFont = AR_One_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-arone",
+  display: "swap",
+});
+
+// Configure the Kanit font
+const kanitFont = Kanit({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-kanit",
+  display: "swap",
+});
+
+// Configure the Montserrat font
+const montserratFont = Montserrat({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-montserrat",
+  display: "swap",
+});
+
+export const metadata: Metadata = {
+  title: "Turkish Transformer | Power & Distribution Transformers",
+  description: "Turkish Transformer leads the industry with reliable, innovative transformer solutions, shaping the future of energy.",
+};
+
+/**
+ * RootLayout Component.
+ * Integrates Next.js layout structure, wraps the page body,
+ * and injects optimized Google Fonts variables.
+ */
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en" className="scroll-smooth">
+      <body
+        className={[
+          arOneSansFont.variable,
+          kanitFont.variable,
+          montserratFont.variable,
+          "antialiased font-arone",
+        ].join(" ")}
+      >
+        {children}
+      </body>
+    </html>
+  );
+}

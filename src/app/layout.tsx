@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { AR_One_Sans, Kanit, Montserrat } from "next/font/google";
 import "./globals.css";
+import { LanguageProvider } from "@/context/LanguageContext";
 
 // Configure the AR One Sans font
 const arOneSansFont = AR_One_Sans({
@@ -27,8 +28,8 @@ const montserratFont = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Turkish Transformer | Power & Distribution Transformers",
-  description: "Turkish Transformer leads the industry with reliable, innovative transformer solutions, shaping the future of energy.",
+  title: "SEECO Power Limited",
+  description: "SEECO Power Limited leads the industry with reliable, transformer solutions, shaping the future of energy.",
 };
 
 /**
@@ -42,7 +43,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body
         className={[
           arOneSansFont.variable,
@@ -51,7 +52,9 @@ export default function RootLayout({
           "antialiased font-arone",
         ].join(" ")}
       >
-        {children}
+        <LanguageProvider>
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );

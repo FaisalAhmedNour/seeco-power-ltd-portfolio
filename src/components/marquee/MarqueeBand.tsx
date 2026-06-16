@@ -63,7 +63,7 @@ export default function MarqueeBand() {
           <div className="relative h-30 w-full max-w-[320px]">
             <Image
               src="/images/SEECOI1.png"
-              alt="Turkish Transformer White Logo"
+              alt="SEECO Transformer White Logo"
               fill
               sizes="(max-width: 768px) 320px, 400px"
               className="object-contain"

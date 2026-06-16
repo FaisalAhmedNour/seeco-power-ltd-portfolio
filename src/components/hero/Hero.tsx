@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { useLanguage } from "@/context/LanguageContext";
 
 /**
  * Arrow right icon for buttons.
@@ -29,6 +30,7 @@ const HERO_SLIDESHOW_IMAGES = [
  */
 export default function Hero() {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const { t } = useLanguage();
 
   // Set up slide rotation interval
   useEffect(() => {
@@ -80,17 +82,17 @@ export default function Hero() {
 
             {/* Upper Badge Tag */}
             <div className="mb-6 inline-flex rounded-sm bg-brand-red px-4.5 py-3 text-sm font-bold leading-none text-white tracking-wider">
-              High Efficiency &amp; High Performance
+              {t("hero.badge")}
             </div>
 
             {/* Core Heading Title */}
             <h1 className="font-kanit text-[clamp(28px,3vw,50px)] leading-[1.15] tracking-tight text-white">
-              Power &amp; Distribution Transformers
+              {t("hero.title")}
             </h1>
 
             {/* Explanatory Paragraph */}
             <p className="mx-auto text-[18px] leading-relaxed text-white/95 md:text-[21px] lg:mx-0">
-              We provide quality with years of experience and our expert team.
+              {t("hero.description")}
             </p>
 
             {/* Call to action button */}
@@ -98,7 +100,7 @@ export default function Hero() {
               href="#contact"
               className="mt-10 inline-flex w-full items-center justify-center gap-3 rounded-[3px] bg-brand-red px-8 py-3 text-base font-bold text-white shadow-[0_0_0_2px_rgba(255,255,255,0.85)] transition-all duration-300 hover:bg-brand-red-hover hover:scale-102 sm:w-auto"
             >
-              <span>Contact Us</span>
+              <span>{t("hero.button")}</span>
               <AngleRightChevronIcon />
             </a>
           </div>

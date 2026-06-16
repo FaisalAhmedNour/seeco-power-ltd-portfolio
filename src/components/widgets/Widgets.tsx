@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 /**
  * Chevron Up SVG icon for Back to Top.
@@ -32,6 +33,7 @@ function BrandWhatsAppIcon() {
  */
 export default function Widgets() {
   const [isScrollButtonVisible, setIsScrollButtonVisible] = useState(false);
+  const { t } = useLanguage();
 
   // Monitor scroll height to conditionally show the back-to-top button
   useEffect(() => {
@@ -63,13 +65,13 @@ export default function Widgets() {
 
       {/* WhatsApp Sticky Contact Button (bottom-left) */}
       <a
-        href="https://wa.me/905325417402?text=Hello%21%20I%20have%20a%20question%20about%20your%20transformer%20solutions."
+        href="https://wa.me/8801714102859?text=Hello%21%20I%20have%20a%20question%20about%20your%20transformer%20solutions."
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-7.5 left-7.5 z-999 flex items-center gap-2.5 rounded-full bg-[#16BE45] px-5 py-3.5 text-[15px] font-bold text-white shadow-lg transition-transform duration-300 hover:scale-105 active:scale-95"
       >
         <BrandWhatsAppIcon />
-        <span>Message Us</span>
+        <span>{t("widgets.messageUs")}</span>
       </a>
 
       {/* Back to Top Navigation Action (bottom-right) */}

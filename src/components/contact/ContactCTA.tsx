@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useLanguage } from "@/context/LanguageContext";
 
 /**
  * Arrow right SVG icon for CTA buttons.
@@ -20,6 +21,8 @@ function ArrowRightLongIcon() {
  * featuring a company team photo, bold callout heading, and an email contact button.
  */
 export default function ContactCTA() {
+  const { t } = useLanguage();
+
   return (
     <section id="contact" className="bg-[#FAF9F5] py-20 px-6 font-arone border-t border-gray-100">
       <div className="mx-auto max-w-310">
@@ -30,7 +33,7 @@ export default function ContactCTA() {
           {/* Left Column: Heading (spans 4/12 on lg) */}
           <div className="text-center lg:col-span-4 lg:text-left">
             <h2 className="font-kanit text-[32px] font-bold leading-tight text-neutral-900 md:text-[44px] tracking-tight">
-              Contact Us <br className="hidden lg:inline" /> And Start <br className="hidden lg:inline" /> Your Project!
+              {t("contactCTA.title")}
             </h2>
           </div>
 
@@ -39,7 +42,7 @@ export default function ContactCTA() {
             <div className="relative aspect-4/5 w-full max-w-90 overflow-hidden bg-gray-100 shadow-md rounded-2xl border border-white">
               <Image
                 src="/images/transformer-maintenance.webp"
-                alt="Turkish Transformer Engineering and Production Team"
+                alt="SEECO Transformer Engineering and Production Team"
                 fill
                 sizes="(max-width: 768px) 360px, 450px"
                 className="object-cover"
@@ -50,10 +53,10 @@ export default function ContactCTA() {
           {/* Right Column: CTA Button (spans 3/12 on lg) */}
           <div className="flex justify-center lg:col-span-3 lg:justify-end">
             <a
-              href="mailto:info@turkishtransformer.com?subject=Transformer%20RFQ"
+              href={`mailto:${t("contactInfo.email")}?subject=Transformer%20RFQ`}
               className="inline-flex w-full items-center justify-center gap-3 border-2 border-brand-red bg-transparent px-8 py-4.5 text-base font-bold text-neutral-950 transition-all duration-300 hover:bg-brand-red hover:text-white rounded-md sm:w-auto"
             >
-              <span>Get Started</span>
+              <span>{t("contactCTA.button")}</span>
               <ArrowRightLongIcon />
             </a>
           </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useLanguage } from "@/context/LanguageContext";
 
 /**
  * Type representing global shipping destination location points.
@@ -72,6 +73,7 @@ function FooterPhoneIcon() {
  * and a fully animated SVG global shipping destination map.
  */
 export default function Footer() {
+  const { t } = useLanguage();
   // Source Dhaka point translated to SVG coordinates
   const dhakaSvgX = (DHAKA_SOURCE_COORDS.left * MAP_SVG_WIDTH) / 100;
   const dhakaSvgY = (DHAKA_SOURCE_COORDS.top * MAP_SVG_HEIGHT) / 100;
@@ -117,39 +119,39 @@ export default function Footer() {
             {/* Column 1: Quick Links */}
             <div className="border-b border-gray-150 pb-5">
               <h4 className="font-kanit text-[20px] font-bold text-neutral-900 mb-6">
-                Quick Links
+                {t("footer.quickLinks")}
               </h4>
               <ul className="space-y-3.5 text-[15px] font-medium text-neutral-600">
-                <li className="underline font-semibold"><a href="#" className="hover:text-brand-red transition-colors">Home</a></li>
-                <li className="underline font-semibold"><a href="#about" className="hover:text-brand-red transition-colors">About Us</a></li>
-                <li className="underline font-semibold"><a href="#products" className="hover:text-brand-red transition-colors">Products</a></li>
-                <li className="underline font-semibold"><a href="#contact" className="hover:text-brand-red transition-colors">Contact Us</a></li>
+                <li className="underline font-semibold"><a href="#" className="hover:text-brand-red transition-colors">{t("nav.home")}</a></li>
+                <li className="underline font-semibold"><a href="#about" className="hover:text-brand-red transition-colors">{t("nav.aboutUs")}</a></li>
+                <li className="underline font-semibold"><a href="#products" className="hover:text-brand-red transition-colors">{t("nav.products")}</a></li>
+                <li className="underline font-semibold"><a href="#contact" className="hover:text-brand-red transition-colors">{t("nav.contact")}</a></li>
               </ul>
             </div>
 
             {/* Column 2: Products */}
             <div className="border-b border-gray-150 pb-5">
               <h4 className="font-kanit text-[20px] font-bold text-neutral-900 mb-6">
-                Products
+                {t("footer.productsHeader")}
               </h4>
               <ul className="space-y-3.5 text-[15px] font-medium text-neutral-600">
-                <li className="underline font-semibold"><a href="#products-distribution" className="hover:text-brand-red transition-colors">Distribution Transformers</a></li>
-                <li className="underline font-semibold"><a href="#products-power" className="hover:text-brand-red transition-colors">Power Transformers</a></li>
-                <li className="underline font-semibold"><a href="#products-special" className="hover:text-brand-red transition-colors">Special Type Transformers</a></li>
-                <li className="underline font-semibold"><a href="#products-dry" className="hover:text-brand-red transition-colors">Dry Type Transformers</a></li>
+                <li className="underline font-semibold"><a href="#products-distribution" className="hover:text-brand-red transition-colors">{t("nav.distributionTransformers")}</a></li>
+                <li className="underline font-semibold"><a href="#products-power" className="hover:text-brand-red transition-colors">{t("nav.powerTransformers")}</a></li>
+                <li className="underline font-semibold"><a href="#products-special" className="hover:text-brand-red transition-colors">{t("nav.specialTypeTransformers")}</a></li>
+                <li className="underline font-semibold"><a href="#products-dry" className="hover:text-brand-red transition-colors">{t("nav.dryTypeTransformers")}</a></li>
               </ul>
             </div>
 
             {/* Column 3: Support & Policies */}
             <div>
               <h4 className="font-kanit text-[20px] font-bold text-neutral-900 mb-6">
-                Support
+                {t("footer.support")}
               </h4>
               <ul className="space-y-3.5 text-[15px] font-medium text-neutral-600">
-                <li className="underline font-semibold"><a href="#" className="hover:text-brand-red transition-colors">Privacy Policy</a></li>
-                <li className="underline font-semibold"><a href="#" className="hover:text-brand-red transition-colors">Cookie Policy</a></li>
-                <li className="underline font-semibold"><a href="#" className="hover:text-brand-red transition-colors">Terms of Services</a></li>
-                <li className="underline font-semibold"><a href="#" className="hover:text-brand-red transition-colors">Delivery &amp; Return Policy</a></li>
+                <li className="underline font-semibold"><a href="#" className="hover:text-brand-red transition-colors">{t("footer.privacyPolicy")}</a></li>
+                <li className="underline font-semibold"><a href="#" className="hover:text-brand-red transition-colors">{t("footer.cookiePolicy")}</a></li>
+                <li className="underline font-semibold"><a href="#" className="hover:text-brand-red transition-colors">{t("footer.termsOfService")}</a></li>
+                <li className="underline font-semibold"><a href="#" className="hover:text-brand-red transition-colors">{t("footer.deliveryReturnPolicy")}</a></li>
               </ul>
             </div>
 
@@ -157,7 +159,7 @@ export default function Footer() {
             <div className="flex flex-col gap-6">
               <Image
                 src="/images/SEECOI1.png"
-                alt="Turkish Transformer Footer Brand Logo"
+                alt="SEECO Footer Brand Logo"
                 width={180}
                 height={45}
                 className="object-contain h-auto"
@@ -166,16 +168,32 @@ export default function Footer() {
               <ul className="text-[13px] text-neutral-700">
                 <li className="flex items-center gap-3">
                   <FooterPhoneIcon />
-                  <a href="tel:+8801818430308" className="hover:text-brand-red">+88 01818430308</a>
+                  <a href="tel:+8801818430308" className="hover:text-brand-red">{t("contactInfo.phone")}</a>
                 </li>
-                <li className="flex items-center gap-3">
-                  <FooterEnvelopeIcon />
-                  <a href="mailto: info@seecopowerlimited.com" className="hover:text-brand-red"> info@seecopowerlimited.com</a>
+                <li className="flex items-start gap-3">
+                  <div className="mt-0.5">
+                    <FooterEnvelopeIcon />
+                  </div>
+                  <div className="flex flex-col gap-0.5">
+                    <a href={`mailto:${t("contactInfo.email")}`} className="hover:text-brand-red leading-none">
+                      {t("contactInfo.email")}
+                    </a>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="mt-0.5">
+                    <FooterEnvelopeIcon />
+                  </div>
+                  <div className="flex flex-col gap-0.5">
+                    <a href={`mailto:${t("contactInfo.email2")}`} className="hover:text-brand-red leading-none">
+                      {t("contactInfo.email2")}
+                    </a>
+                  </div>
                 </li>
                 <li className="flex items-start gap-3">
                   <FooterLocationPinIcon />
                   <span className="leading-tight">
-                    Ekuria Tila Bari, South Keranigong Dhaka- 1311
+                    {t("contactInfo.address")}
                   </span>
                 </li>
               </ul>
@@ -319,7 +337,7 @@ export default function Footer() {
                     <div className="er-turkey-ring r2" />
                     <div className="er-turkey-ring r3" />
                     <div className="er-turkey-core" />
-                    <div className="er-turkey-label font-arone font-bold">HQ</div>
+                    <div className="er-turkey-label font-arone font-bold">{t("footer.hqLabel")}</div>
                   </div>
                 </div>
 

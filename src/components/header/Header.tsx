@@ -2,36 +2,43 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { useLanguage } from "@/context/LanguageContext";
+import LanguageToggle from "@/components/widgets/LanguageToggle";
 
 /**
  * Type definition for navigation links in the header.
  */
 interface NavigationLinkItem {
-  label: string;
+  labelKey: string;
   href: string;
   active?: boolean;
   hasDropdown?: boolean;
-  dropdownItems?: { label: string; href: string }[];
+  dropdownItems?: { labelKey: string; href: string }[];
 }
 
 // Navigation links config matching the site structure
 const HEADER_NAVIGATION_ITEMS: NavigationLinkItem[] = [
-  { label: "Home", href: "#", active: true },
-  { label: "About Us", href: "#about" },
+  { labelKey: "nav.home", href: "#", active: true },
+  { labelKey: "nav.aboutUs", href: "#about" },
   {
-    label: "Products",
+    labelKey: "nav.products",
     href: "#products",
     hasDropdown: true,
     dropdownItems: [
-      { label: "Distribution Transformers", href: "#products-distribution" },
-      { label: "Power Transformers", href: "#products-power" },
-      { label: "Special Type Transformers", href: "#products-special" },
-      { label: "Dry-Type Transformer", href: "#products-dry" },
+      { labelKey: "nav.distributionTransformers", href: "#products-distribution" },
+      { labelKey: "nav.powerTransformers", href: "#products-power" },
+      { labelKey: "nav.specialTypeTransformers", href: "#products-special" },
+      { labelKey: "nav.dryTypeTransformers", href: "#products-dry" },
+      { labelKey: "nav.lovolDiselGenerator", href: "#products-lovol" },
+      { labelKey: "nav.electricSwitchgear", href: "#products-switchgear" },
+      { labelKey: "nav.bbtBusBarTrunkingSystem", href: "#products-bbt" },
+      { labelKey: "nav.renewableEnergy", href: "#products-renewable" },
     ],
   },
-  { label: "Service / Maintenance", href: "#marquee-band" },
-  { label: "Blog", href: "#blog" },
-  { label: "Contact", href: "#contact" },
+  { labelKey: "nav.service", href: "#marquee-band" },
+  { labelKey: "nav.blog", href: "#blog" },
+  { labelKey: "nav.contact", href: "#contact" },
+  { labelKey: "nav.notice", href: "#notice" },
 ];
 
 /**
@@ -101,21 +108,23 @@ function MobileMenuButtonIcon({ open }: { open: boolean }) {
 /**
  * Social media platform icons mapping to premium vector path nodes.
  */
-function BrandSocialIcon({ platform }: { platform: "linkedin" | "facebook" | "instagram" | "pinterest" }) {
+function BrandSocialIcon({ platform, href }: { platform: "linkedin" | "facebook" | "instagram" | "youtube"; href: string }) {
   const socialPaths = {
     linkedin: "M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z",
     facebook: "M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z",
     instagram: "M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z",
-    pinterest: "M496 256c0 137-111 248-248 248-25.6 0-50.2-3.9-73.4-11.1 10.1-16.5 25.2-43.5 30.8-65 3-11.6 15.4-59 15.4-59 8.1 15.4 31.7 28.5 56.8 28.5 74.8 0 128.7-68.8 128.7-154.3 0-81.9-66.9-143.2-152.9-143.2-107 0-163.9 71.8-163.9 150.1 0 36.4 19.4 81.7 50.3 96.1 4.7 2.2 7.2 1.2 8.3-3.3.8-3.4 5-20.3 6.9-28.1.6-2.5.3-4.7-1.7-7.1-10.1-12.5-18.3-35.3-18.3-56.6 0-54.7 41.4-107.6 112-107.6 60.9 0 103.6 41.5 103.6 100.9 0 67.1-33.9 113.6-78 113.6-24.3 0-42.6-20.1-36.7-44.8 7-29.5 20.5-61.3 20.5-82.6 0-19-10.2-34.9-31.4-34.9-24.9 0-44.9 25.7-44.9 60.2 0 22 7.4 36.8 7.4 36.8s-24.5 103.8-29 123.2c-5 21.4-3 51.6-.9 71.2C65.4 450.9 0 361.1 0 256 0 119 111 8 248 8s248 111 248 248z"
+    youtube: "M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 131.917-11.412 131.917s0 89.05 11.412 131.917c6.281 23.65 24.787 41.503 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.318 42.003-24.171 48.284-47.821 11.412-42.867 11.412-131.917 11.412-131.917s0-89.05-11.412-131.917zM218.423 318.548V169.524l146.617 74.512-146.617 74.512z"
   };
 
   return (
     <a
-      href="#"
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
       aria-label={platform.charAt(0).toUpperCase() + platform.slice(1)}
-      className="grid h-8 w-8 place-items-center rounded-full text-brand-red transition-all duration-300 hover:bg-brand-red-hover hover:text-white"
+      className="grid h-8 w-8 place-items-center rounded-full transition-all duration-300 hover:bg-gray-100"
     >
-      <svg viewBox="0 0 512 512" aria-hidden="true" className="h-4.5 w-4.5 fill-current">
+      <svg viewBox="0 0 512 512" aria-hidden="true" className="h-4.5 w-4.5 fill-brand-red hover:fill-brand-red-hover transition-colors duration-200">
         <path d={socialPaths[platform]} />
       </svg>
     </a>
@@ -128,15 +137,16 @@ function BrandSocialIcon({ platform }: { platform: "linkedin" | "facebook" | "in
  */
 function HeaderDesktopNavLinks() {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const { t } = useLanguage();
 
   return (
     <nav aria-label="Primary navigation">
       <ul className="flex items-center gap-7 font-arone font-semibold text-black">
         {HEADER_NAVIGATION_ITEMS.map((item) => (
           <li
-            key={item.label}
+            key={item.labelKey}
             className="relative"
-            onMouseEnter={() => item.hasDropdown && setActiveDropdown(item.label)}
+            onMouseEnter={() => item.hasDropdown && setActiveDropdown(item.labelKey)}
             onMouseLeave={() => item.hasDropdown && setActiveDropdown(null)}
           >
             <a
@@ -146,7 +156,7 @@ function HeaderDesktopNavLinks() {
                 item.active ? "text-brand-red" : "",
               ].join(" ")}
             >
-              {item.label}
+              {t(item.labelKey)}
               {item.hasDropdown ? <ArrowChevronDownIcon /> : null}
 
               {/* Underline indicators with transitions */}
@@ -158,15 +168,15 @@ function HeaderDesktopNavLinks() {
             </a>
 
             {/* Dropdown overlay */}
-            {item.hasDropdown && item.dropdownItems && activeDropdown === item.label && (
+            {item.hasDropdown && item.dropdownItems && activeDropdown === item.labelKey && (
               <ul className="absolute top-full left-0 z-50 w-60 border border-gray-100 bg-white py-2 shadow-xl animate-fade-in">
                 {item.dropdownItems.map((subItem) => (
-                  <li key={subItem.label}>
+                  <li key={subItem.labelKey}>
                     <a
                       href={subItem.href}
                       className="block px-5 py-3 font-arone text-[14px] text-gray-700 transition-colors duration-200 hover:bg-brand-red hover:text-white"
                     >
-                      {subItem.label}
+                      {t(subItem.labelKey)}
                     </a>
                   </li>
                 ))}
@@ -190,6 +200,7 @@ function HeaderMobileNavLinks({
   onClose: () => void;
 }) {
   const [dropdownExpanded, setDropdownExpanded] = useState(false);
+  const { t } = useLanguage();
 
   return (
     <div
@@ -221,14 +232,14 @@ function HeaderMobileNavLinks({
         <nav aria-label="Mobile navigation">
           <ul className="flex flex-col gap-2 font-arone font-semibold text-black">
             {HEADER_NAVIGATION_ITEMS.map((item) => (
-              <li key={item.label} className="border-b border-gray-100 py-1">
+              <li key={item.labelKey} className="border-b border-gray-100 py-1">
                 {item.hasDropdown ? (
                   <div>
                     <button
                       onClick={() => setDropdownExpanded(!dropdownExpanded)}
                       className="flex w-full items-center justify-between py-2 text-[16px] text-left hover:text-brand-red"
                     >
-                      <span>{item.label}</span>
+                      <span>{t(item.labelKey)}</span>
                       <span className={dropdownExpanded ? "rotate-180 transition-transform duration-200" : "transition-transform duration-200"}>
                         <ArrowChevronDownIcon />
                       </span>
@@ -236,13 +247,13 @@ function HeaderMobileNavLinks({
                     {dropdownExpanded && item.dropdownItems && (
                       <ul className="pl-4 mt-1 bg-gray-50/50 rounded-lg">
                         {item.dropdownItems.map((subItem) => (
-                          <li key={subItem.label}>
+                          <li key={subItem.labelKey}>
                             <a
                               href={subItem.href}
                               onClick={onClose}
                               className="block py-2.5 text-[14px] text-gray-600 hover:text-brand-red"
                             >
-                              {subItem.label}
+                              {t(subItem.labelKey)}
                             </a>
                           </li>
                         ))}
@@ -258,13 +269,21 @@ function HeaderMobileNavLinks({
                       item.active ? "text-brand-red" : "",
                     ].join(" ")}
                   >
-                    {item.label}
+                    {t(item.labelKey)}
                   </a>
                 )}
               </li>
             ))}
           </ul>
         </nav>
+
+        {/* Mobile Language Toggle Section */}
+        <div className="mt-8 pt-6 border-t border-gray-150 flex flex-col gap-3">
+          <span className="text-[12px] font-bold text-gray-400 uppercase tracking-wider">
+            {t("footer.support")} / Lang
+          </span>
+          <LanguageToggle />
+        </div>
       </div>
     </div>
   );
@@ -276,6 +295,7 @@ function HeaderMobileNavLinks({
  */
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { t } = useLanguage();
 
   return (
     <header className="relative z-30 bg-white text-black  font-arone">
@@ -285,34 +305,71 @@ export default function Header() {
           <div className="flex items-center gap-2 text-gray-700">
             <AddressPinIcon />
             <span className="truncate">
-              Ekuria Tila Bari, South Keranigong Dhaka- 1311
+              {t("contactInfo.address")}
             </span>
           </div>
 
           <div className="flex items-center gap-6">
-            <a
-              href="mailto: info@seecopowerlimited.com"
-              className="flex items-center gap-2 text-gray-700 hover:text-brand-red transition-colors duration-200"
-            >
-              <EnvelopeMailIcon />
-              <span> info@seecopowerlimited.com</span>
-            </a>
+            {/* Hover Dropdown displaying multiple emails */}
+            <div className="relative group/email py-2 cursor-pointer">
+              <div className="flex items-center gap-2 text-gray-700 group-hover/email:text-brand-red transition-colors duration-200">
+                <EnvelopeMailIcon />
+                <span>{t("contactInfo.email")}</span>
+                {/* Chevron icon indicating click/hover dropdown interactions */}
+                <svg
+                  viewBox="0 0 20 20"
+                  aria-hidden="true"
+                  className="h-3 w-3 fill-current transition-transform duration-200 group-hover/email:rotate-180"
+                >
+                  <path d="M5.25 7.25 10 12l4.75-4.75 1.06 1.06L10 14.12 4.19 8.31l1.06-1.06Z" />
+                </svg>
+              </div>
+
+              {/* Dropdown container absolute overlays */}
+              <div className="absolute top-full right-0 z-50 mt-1 w-60 origin-top-right scale-95 opacity-0 pointer-events-none group-hover/email:scale-100 group-hover/email:opacity-100 group-hover/email:pointer-events-auto transition-all duration-200 ease-out">
+                <div className="border border-gray-100 bg-white py-2.5 shadow-xl">
+                  <a
+                    href={`mailto:${t("contactInfo.email")}`}
+                    className="block px-4 py-2 hover:bg-gray-50 transition-colors duration-150 text-left"
+                  >
+                    {/* <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">
+                      {t("contactInfo.emailLabel")}
+                    </div> */}
+                    <div className="text-[13px] font-semibold text-neutral-800 hover:text-brand-red break-all">
+                      {t("contactInfo.email")}
+                    </div>
+                  </a>
+                  <div className="h-px bg-gray-150 my-1.5" />
+                  <a
+                    href={`mailto:${t("contactInfo.email2")}`}
+                    className="block px-4 py-2 hover:bg-gray-50 transition-colors duration-150 text-left"
+                  >
+                    {/* <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">
+                      {t("contactInfo.email2Label")}
+                    </div> */}
+                    <div className="text-[13px] font-semibold text-neutral-800 hover:text-brand-red break-all">
+                      {t("contactInfo.email2")}
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
 
             <a
               href="tel:+8801818430308"
               className="flex items-center gap-2 text-gray-700 hover:text-brand-red transition-colors duration-200"
             >
               <TelephonyPhoneIcon />
-              <span>+88 01818 43 03 08</span>
+              <span>{t("contactInfo.phone")}</span>
             </a>
 
             <div className="h-4 w-px bg-gray-300" />
 
             <div className="flex items-center gap-1">
-              <BrandSocialIcon platform="linkedin" />
-              <BrandSocialIcon platform="facebook" />
-              <BrandSocialIcon platform="instagram" />
-              <BrandSocialIcon platform="pinterest" />
+              <BrandSocialIcon platform="linkedin" href="http://www.linkedin.com/in/seeco-power-limited-132341417" />
+              <BrandSocialIcon platform="facebook" href="https://www.facebook.com/seecopowerlimited" />
+              <BrandSocialIcon platform="instagram" href="https://www.instagram.com/seecopowerltd" />
+              <BrandSocialIcon platform="youtube" href="https://youtube.com/@seecopowerlimited?si=FQoSyl9caktLh6n1" />
             </div>
           </div>
         </div>
@@ -321,10 +378,10 @@ export default function Header() {
       {/* Main Navbar */}
       <div className="bg-white">
         <div className="mx-auto flex h-22.5 max-w-310 items-center justify-between px-6">
-          <a href="#" className="flex items-center" aria-label="Turkish Transformer Home">
+          <a href="#" className="flex items-center" aria-label="SEECO Transformer Home">
             <Image
               src="/images/SEECOI1.png"
-              alt="Turkish Transformer Logo"
+              alt="SEECO Transformer Logo"
               width={180}
               height={45}
               priority
@@ -337,7 +394,10 @@ export default function Header() {
             <HeaderDesktopNavLinks />
           </div>
 
-          <div className=""></div>
+          {/* Desktop Language Toggle */}
+          <div className="hidden lg:block">
+            <LanguageToggle />
+          </div>
 
           {/* Mobile Navigation Trigger Toggle */}
           <button

@@ -187,7 +187,7 @@ export const translations: Record<"en" | "bn", TranslationSchema> = {
       notice: "নোটিশ",
     },
     contactInfo: {
-      address: "একুরিয়া টিলা বাড়ি, দক্ষিণ কেরানীগঞ্জ, ঢাকা- ১৩১১",
+      address: "ইকুরিয়া টিলা বাড়ি, দক্ষিণ কেরানীগঞ্জ, ঢাকা- ১৩১১",
       email: "info@seecopowerlimited.com",
       email2: "seecopowerltd@gmail.com",
       emailLabel: "সাধারণ অনুসন্ধান",

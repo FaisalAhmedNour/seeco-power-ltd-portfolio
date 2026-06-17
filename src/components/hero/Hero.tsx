@@ -76,8 +76,8 @@ export default function Hero() {
       <div className="absolute inset-0 z-10 bg-black/45" />
 
       {/* Content layout wrapper */}
-      <div className="relative z-20 flex h-full items-center px-6 py-16 md:px-12 lg:px-20">
-        <div className="mx-auto flex w-full max-w-310 justify-end lg:justify-end">
+      <div className="relative z-20 flex h-full items-center px-6 md:px-12">
+        <div className="mx-auto flex w-full max-w-310 justify-end lg:justify-end pb-20">
           <div className="text-center text-white lg:mr-[6.5%] lg:text-right space-y-5">
 
             {/* Upper Badge Tag */}

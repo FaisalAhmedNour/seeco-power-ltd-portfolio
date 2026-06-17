@@ -116,6 +116,14 @@ function BrandSocialIcon({ platform, href }: { platform: "linkedin" | "facebook"
     youtube: "M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 131.917-11.412 131.917s0 89.05 11.412 131.917c6.281 23.65 24.787 41.503 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.318 42.003-24.171 48.284-47.821 11.412-42.867 11.412-131.917 11.412-131.917s0-89.05-11.412-131.917zM218.423 318.548V169.524l146.617 74.512-146.617 74.512z"
   };
 
+  const isInstagram = platform === "instagram";
+  const iconColorClasses = {
+    linkedin: "fill-[#0a66c2] hover:fill-[#084d92] transition-colors duration-250",
+    facebook: "fill-[#1877f2] hover:fill-[#0c5bc6] transition-colors duration-250",
+    youtube: "fill-[#ff0000] hover:fill-[#cc0000] transition-colors duration-250",
+    instagram: "" // Handled via SVG gradient definitions
+  };
+
   return (
     <a
       href={href}
@@ -124,8 +132,25 @@ function BrandSocialIcon({ platform, href }: { platform: "linkedin" | "facebook"
       aria-label={platform.charAt(0).toUpperCase() + platform.slice(1)}
       className="grid h-8 w-8 place-items-center rounded-full transition-all duration-300 hover:bg-gray-100"
     >
-      <svg viewBox="0 0 512 512" aria-hidden="true" className="h-4.5 w-4.5 fill-brand-red hover:fill-brand-red-hover transition-colors duration-200">
-        <path d={socialPaths[platform]} />
+      <svg
+        viewBox="0 0 512 512"
+        aria-hidden="true"
+        className="h-4.5 w-4.5 transition-transform duration-250 hover:scale-110"
+      >
+        {isInstagram && (
+          <defs>
+            <linearGradient id="instagram-brand-gradient" x1="100%" y1="100%" x2="0%" y2="0%">
+              <stop offset="0%" stopColor="#f9ce34" />
+              <stop offset="30%" stopColor="#ee2a7b" />
+              <stop offset="100%" stopColor="#6228d7" />
+            </linearGradient>
+          </defs>
+        )}
+        <path
+          d={socialPaths[platform]}
+          fill={isInstagram ? "url(#instagram-brand-gradient)" : undefined}
+          className={isInstagram ? undefined : iconColorClasses[platform]}
+        />
       </svg>
     </a>
   );

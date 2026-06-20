@@ -42,7 +42,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative h-[calc(100vh-64px)] md:h-[calc(100vh-100px)] min-h-[500px] overflow-hidden bg-white font-arone round-t-md rounded-t-3xl">
+    <section className="relative h-[calc(100vh-64px)] md:h-[calc(100vh-100px)] min-h-125 overflow-hidden bg-white font-arone round-t-md rounded-t-3xl">
 
       {/* Background Slideshow Container */}
       <div className="absolute inset-0 z-0">

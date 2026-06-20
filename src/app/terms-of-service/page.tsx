@@ -1,9 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
+import PageHeader from "@/components/widgets/PageHeader";
 import { termsOfServiceContent } from "./content";
 
 /**
@@ -123,39 +122,7 @@ export default function TermsOfServicePage() {
   return (
     <div className="relative bg-white text-black">
       {/* 1. Page Hero header Section */}
-      <section className="mx-auto max-w-310 px-6 pt-6 font-montserrat">
-        <div className="relative overflow-hidden rounded-[20px] bg-neutral-900 py-12 md:py-16 text-center text-white shadow-md">
-          {/* Background image container representing industrial transformer setting */}
-          <div className="absolute inset-0 z-0">
-            <Image
-              src="/images/Transformer3.1.png"
-              alt={`${data.title} background`}
-              fill
-              priority
-              className="object-cover object-center"
-            />
-            {/* Semi-transparent dark blue overlay for high-contrast legible typography */}
-            <div className="absolute inset-0 bg-[#0B3A72]/85" />
-          </div>
-
-          {/* Content container aligned center relative to overlay */}
-          <div className="relative z-10 mx-auto max-w-2xl px-4">
-            {/* Primary Page Heading */}
-            <h1 className="font-kanit text-[32px] md:text-[44px] font-bold text-white leading-tight uppercase tracking-tight mb-3">
-              {data.title}
-            </h1>
-
-            {/* Breadcrumbs navigation structure with vertical pipe separator */}
-            <nav className="flex justify-center items-center gap-2 text-[14px] font-semibold text-gray-200">
-              <Link href="/" className="hover:text-brand-red transition-colors duration-200">
-                {language === "bn" ? "হোম" : "Home"}
-              </Link>
-              <span className="text-gray-400">|</span>
-              <span className="text-white font-bold">{data.title}</span>
-            </nav>
-          </div>
-        </div>
-      </section>
+      <PageHeader title={data.title} />
 
       {/* 2. Main content Layout Grid (Sidebar TOC & Policy text container) */}
       <section className="mx-auto max-w-310 px-6 py-8">

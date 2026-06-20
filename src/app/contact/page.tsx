@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
+import PageHeader from "@/components/widgets/PageHeader";
 
 // Local translations mapping for contact page elements
 const CONTACT_PAGE_TEXT = {
@@ -15,10 +15,12 @@ const CONTACT_PAGE_TEXT = {
     // Form fields
     name: "Your Name",
     email: "Your Email",
+    mobile: "Mobile Number",
     subject: "Subject",
     message: "Your Message",
     placeholderName: "Enter your full name",
     placeholderEmail: "Enter your email address",
+    placeholderMobile: "Enter your mobile number",
     placeholderSubject: "What is this regarding?",
     placeholderMessage: "Type your message here...",
 
@@ -27,9 +29,12 @@ const CONTACT_PAGE_TEXT = {
     sending: "Sending...",
     success: "Thank you! Your message has been sent successfully. We will get back to you soon.",
     error: "Oops! Something went wrong. Please check your inputs and try again.",
+    formTitle: "Send Us a Message",
+    formSubtitle: "Feel free to reach out. Our team will respond to your inquiry as soon as possible.",
 
     // Info Cards
     office: "Headquarters",
+    factory: "Factory",
     phone: "Call Us",
     emailLabel: "Email Us",
   },
@@ -42,10 +47,12 @@ const CONTACT_PAGE_TEXT = {
     // Form fields
     name: "আপনার নাম",
     email: "আপনার ইমেল",
+    mobile: "মোবাইল নম্বর",
     subject: "বিষয়",
     message: "বার্তা",
     placeholderName: "আপনার পুরো নাম লিখুন",
     placeholderEmail: "আপনার ইমেল ঠিকানা লিখুন",
+    placeholderMobile: "আপনার মোবাইল নম্বর লিখুন",
     placeholderSubject: "কোন বিষয়ে জানাতে চান?",
     placeholderMessage: "এখানে আপনার বার্তাটি লিখুন...",
 
@@ -54,9 +61,12 @@ const CONTACT_PAGE_TEXT = {
     sending: "পাঠানো হচ্ছে...",
     success: "ধন্যবাদ! আপনার বার্তাটি সফলভাবে পাঠানো হয়েছে। আমরা শীঘ্রই আপনার সাথে যোগাযোগ করব।",
     error: "দুঃখিত! কিছু ভুল হয়েছে। অনুগ্রহ করে ইনপুটগুলো পরীক্ষা করে আবার চেষ্টা করুন।",
+    formTitle: "আমাদের বার্তা পাঠান",
+    formSubtitle: "যেকোনো প্রয়োজনে আমাদের সাথে যোগাযোগ করুন। আমাদের দল যত দ্রুত সম্ভব আপনার প্রশ্নের উত্তর দেবে।",
 
     // Info Cards
     office: "প্রধান কার্যালয়",
+    factory: "ফ্যাক্টরি",
     phone: "ফোন করুন",
     emailLabel: "ইমেইল করুন",
   }
@@ -110,6 +120,7 @@ export default function ContactPage() {
   // Form field states
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [mobile, setMobile] = useState("");
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
 
@@ -129,13 +140,14 @@ export default function ContactPage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name, email, subject, message }),
+        body: JSON.stringify({ name, email, mobile, subject, message }),
       });
 
       if (response.ok) {
         setSubmitSuccess(true);
         setName("");
         setEmail("");
+        setMobile("");
         setSubject("");
         setMessage("");
       } else {
@@ -153,36 +165,21 @@ export default function ContactPage() {
     <div className="bg-[#FAF9F5] font-arone text-black min-h-screen">
 
       {/* 1. Page Header segment */}
-      <section className="relative py-16 bg-neutral-900 text-white overflow-hidden">
-        {/* Animated ambient lighting circles */}
-        <div className="absolute top-0 right-0 w-80 h-80 bg-brand-red/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-60 h-60 bg-brand-red/5 rounded-full blur-2xl" />
-
-        <div className="relative mx-auto max-w-310 px-6 z-10">
-          <div className="flex flex-col items-center text-center space-y-4">
-            <h1 className="font-kanit text-4xl md:text-5xl font-bold tracking-tight text-white">
-              {text.title}
-            </h1>
-            <p className="text-[14px] font-bold text-brand-red uppercase tracking-widest">
-              {text.breadcrumbs}
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageHeader title={text.title} />
 
       {/* 2. Form & Info Core Content Section */}
-      <section className="py-20 px-6">
+      <section className="py-12 px-6">
         <div className="mx-auto max-w-310">
 
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
 
             {/* Left Column: Official Contact Details Cards */}
-            <div className="lg:col-span-5 space-y-8">
-              <div className="space-y-4">
+            <div className="lg:col-span-5 space-y-4">
+              <div className="space-y-2">
                 <span className="text-[14px] font-bold text-brand-red uppercase tracking-widest block">
                   {text.subtitle}
                 </span>
-                <h2 className="font-kanit text-[32px] font-bold text-neutral-900 leading-tight">
+                <h2 className="font-kanit text-[32px] font-bold text-neutral-900 leading-8">
                   {language === "en" ? "Let's Build the Future of Energy Together" : "আসুন একসাথে ভবিষ্যতের বিদ্যুৎ অবকাঠামো গড়ে তুলি"}
                 </h2>
                 <p className="text-[16px] leading-relaxed text-neutral-600">
@@ -191,7 +188,7 @@ export default function ContactPage() {
               </div>
 
               {/* Cards Grid layout */}
-              <div className="grid grid-cols-1 gap-5">
+              <div className="grid grid-cols-1 gap-3">
 
                 {/* Office Card */}
                 <div className="flex gap-4 p-5 bg-white rounded-xl shadow-sm border border-neutral-100/60 hover:shadow-md transition-all duration-300">
@@ -204,6 +201,21 @@ export default function ContactPage() {
                     </h3>
                     <p className="text-[15px] leading-relaxed text-neutral-600">
                       {t("contactInfo.address")}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Factory Card */}
+                <div className="flex gap-4 p-5 bg-white rounded-xl shadow-sm border border-neutral-100/60 hover:shadow-md transition-all duration-300">
+                  <div className="p-3 bg-red-50 rounded-lg h-fit">
+                    <PinIcon />
+                  </div>
+                  <div className="space-y-1">
+                    <h3 className="font-kanit text-lg font-bold text-neutral-900 leading-tight">
+                      {text.factory}
+                    </h3>
+                    <p className="text-[15px] leading-relaxed text-neutral-600">
+                      {t("contactInfo.factoryAddress")}
                     </p>
                   </div>
                 </div>
@@ -247,14 +259,21 @@ export default function ContactPage() {
                     </div>
                   </div>
                 </div>
-
-
-
               </div>
             </div>
 
             {/* Right Column: Custom Message Form */}
             <div className="lg:col-span-7 bg-white p-8 md:p-10 rounded-2xl border border-neutral-100 shadow-sm">
+              {/* Form Title & Introduction Section */}
+              <div className="mb-6 space-y-1.5 pb-4 border-b border-neutral-100">
+                <h3 className="font-kanit text-[24px] font-bold text-neutral-900 leading-tight">
+                  {text.formTitle}
+                </h3>
+                <p className="text-[14px] leading-relaxed text-neutral-500 font-medium font-montserrat">
+                  {text.formSubtitle}
+                </p>
+              </div>
+
               <form onSubmit={handleFormSubmit} className="space-y-6">
 
                 {/* Two Column Grid on Tablet/Desktop for name & email */}
@@ -290,20 +309,36 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                {/* Subject Field */}
-                <div className="space-y-2">
-                  <label htmlFor="subject" className="text-[14px] font-bold text-neutral-800">
-                    {text.subject} <span className="text-brand-red">*</span>
-                  </label>
-                  <input
-                    id="subject"
-                    type="text"
-                    required
-                    value={subject}
-                    onChange={(e) => setSubject(e.target.value)}
-                    placeholder={text.placeholderSubject}
-                    className="w-full px-4 py-3 rounded-lg border border-neutral-200 focus:outline-hidden focus:border-brand-red focus:ring-1 focus:ring-brand-red text-[15px] transition-all bg-neutral-50/50"
-                  />
+                {/* Two Column Grid on Tablet/Desktop for mobile & subject */}
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                  <div className="space-y-2">
+                    <label htmlFor="mobile" className="text-[14px] font-bold text-neutral-800 flex items-center gap-1.5">
+                      {text.mobile} <span className="text-neutral-400 text-[12px] font-medium">({language === "bn" ? "ঐচ্ছিক" : "Optional"})</span>
+                    </label>
+                    <input
+                      id="mobile"
+                      type="tel"
+                      value={mobile}
+                      onChange={(e) => setMobile(e.target.value)}
+                      placeholder={text.placeholderMobile}
+                      className="w-full px-4 py-3 rounded-lg border border-neutral-200 focus:outline-hidden focus:border-brand-red focus:ring-1 focus:ring-brand-red text-[15px] transition-all bg-neutral-50/50"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label htmlFor="subject" className="text-[14px] font-bold text-neutral-800">
+                      {text.subject} <span className="text-brand-red">*</span>
+                    </label>
+                    <input
+                      id="subject"
+                      type="text"
+                      required
+                      value={subject}
+                      onChange={(e) => setSubject(e.target.value)}
+                      placeholder={text.placeholderSubject}
+                      className="w-full px-4 py-3 rounded-lg border border-neutral-200 focus:outline-hidden focus:border-brand-red focus:ring-1 focus:ring-brand-red text-[15px] transition-all bg-neutral-50/50"
+                    />
+                  </div>
                 </div>
 
                 {/* Message Field */}
@@ -362,9 +397,7 @@ export default function ContactPage() {
 
               </form>
             </div>
-
           </div>
-
         </div>
       </section>
 

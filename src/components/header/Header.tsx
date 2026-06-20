@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useLanguage } from "@/context/LanguageContext";
 import LanguageToggle from "@/components/widgets/LanguageToggle";
 
@@ -163,6 +164,15 @@ function BrandSocialIcon({ platform, href }: { platform: "linkedin" | "facebook"
 function HeaderDesktopNavLinks() {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const { t } = useLanguage();
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+
+  const getHref = (href: string) => {
+    if (isHome) return href;
+    if (href === "#") return "/";
+    if (href.startsWith("#")) return `/${href}`;
+    return href;
+  };
 
   return (
     <nav aria-label="Primary navigation">
@@ -175,17 +185,17 @@ function HeaderDesktopNavLinks() {
             onMouseLeave={() => item.hasDropdown && setActiveDropdown(null)}
           >
             <a
-              href={item.href}
+              href={getHref(item.href)}
               className={[
                 "group relative flex items-center gap-1 py-7 text-[16px] transition-colors duration-300 hover:text-brand-red",
-                item.active ? "text-brand-red" : "",
+                item.active && isHome ? "text-brand-red" : "",
               ].join(" ")}
             >
               {t(item.labelKey)}
               {item.hasDropdown ? <ArrowChevronDownIcon /> : null}
 
               {/* Underline indicators with transitions */}
-              {item.active ? (
+              {item.active && isHome ? (
                 <span className="absolute bottom-5 left-0 h-0.5 w-full bg-brand-red" />
               ) : (
                 <span className="absolute bottom-5 left-0 h-0.5 w-0 bg-brand-red transition-all duration-300 group-hover:w-full" />
@@ -198,7 +208,7 @@ function HeaderDesktopNavLinks() {
                 {item.dropdownItems.map((subItem) => (
                   <li key={subItem.labelKey}>
                     <a
-                      href={subItem.href}
+                      href={getHref(subItem.href)}
                       className="block px-5 py-3 font-arone text-[14px] text-gray-700 transition-colors duration-200 hover:bg-brand-red hover:text-white"
                     >
                       {t(subItem.labelKey)}
@@ -226,6 +236,15 @@ function HeaderMobileNavLinks({
 }) {
   const [dropdownExpanded, setDropdownExpanded] = useState(false);
   const { t } = useLanguage();
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+
+  const getHref = (href: string) => {
+    if (isHome) return href;
+    if (href === "#") return "/";
+    if (href.startsWith("#")) return `/${href}`;
+    return href;
+  };
 
   return (
     <div
@@ -274,7 +293,7 @@ function HeaderMobileNavLinks({
                         {item.dropdownItems.map((subItem) => (
                           <li key={subItem.labelKey}>
                             <a
-                              href={subItem.href}
+                              href={getHref(subItem.href)}
                               onClick={onClose}
                               className="block py-2.5 text-[14px] text-gray-600 hover:text-brand-red"
                             >
@@ -287,11 +306,11 @@ function HeaderMobileNavLinks({
                   </div>
                 ) : (
                   <a
-                    href={item.href}
+                    href={getHref(item.href)}
                     onClick={onClose}
                     className={[
                       "block py-2 text-[16px] transition-colors duration-200 hover:text-brand-red",
-                      item.active ? "text-brand-red" : "",
+                      item.active && isHome ? "text-brand-red" : "",
                     ].join(" ")}
                   >
                     {t(item.labelKey)}
@@ -321,6 +340,8 @@ function HeaderMobileNavLinks({
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { t } = useLanguage();
+  const pathname = usePathname();
+  const isHome = pathname === "/";
 
   return (
     <header className="relative z-30 bg-white text-black  font-arone">
@@ -403,7 +424,7 @@ export default function Header() {
       {/* Main Navbar */}
       <div className="bg-white">
         <div className="mx-auto flex h-22.5 max-w-310 items-center justify-between px-6">
-          <a href="#" className="flex items-center" aria-label="SEECO Transformer Home">
+          <a href={isHome ? "#" : "/"} className="flex items-center" aria-label="SEECO Transformer Home">
             <Image
               src="/images/SEECOI1.png"
               alt="SEECO Transformer Logo"

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useLanguage } from "@/context/LanguageContext";
 
 /**
@@ -74,6 +75,16 @@ function FooterPhoneIcon() {
  */
 export default function Footer() {
   const { t } = useLanguage();
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+
+  const getHref = (href: string) => {
+    if (isHome) return href;
+    if (href === "#") return "/";
+    if (href.startsWith("#")) return `/${href}`;
+    return href;
+  };
+
   // Source Dhaka point translated to SVG coordinates
   const dhakaSvgX = (DHAKA_SOURCE_COORDS.left * MAP_SVG_WIDTH) / 100;
   const dhakaSvgY = (DHAKA_SOURCE_COORDS.top * MAP_SVG_HEIGHT) / 100;
@@ -122,10 +133,10 @@ export default function Footer() {
                 {t("footer.quickLinks")}
               </h4>
               <ul className="space-y-3.5 text-[15px] font-medium text-neutral-600">
-                <li className="underline font-semibold"><a href="#" className="hover:text-brand-red transition-colors">{t("nav.home")}</a></li>
-                <li className="underline font-semibold"><a href="#about" className="hover:text-brand-red transition-colors">{t("nav.aboutUs")}</a></li>
-                <li className="underline font-semibold"><a href="#products" className="hover:text-brand-red transition-colors">{t("nav.products")}</a></li>
-                <li className="underline font-semibold"><a href="#contact" className="hover:text-brand-red transition-colors">{t("nav.contact")}</a></li>
+                <li className="underline font-semibold"><a href={getHref("#")} className="hover:text-brand-red transition-colors">{t("nav.home")}</a></li>
+                <li className="underline font-semibold"><a href={getHref("#about")} className="hover:text-brand-red transition-colors">{t("nav.aboutUs")}</a></li>
+                <li className="underline font-semibold"><a href={getHref("#products")} className="hover:text-brand-red transition-colors">{t("nav.products")}</a></li>
+                <li className="underline font-semibold"><a href={getHref("#contact")} className="hover:text-brand-red transition-colors">{t("nav.contact")}</a></li>
               </ul>
             </div>
 
@@ -135,10 +146,10 @@ export default function Footer() {
                 {t("footer.productsHeader")}
               </h4>
               <ul className="space-y-3.5 text-[15px] font-medium text-neutral-600">
-                <li className="underline font-semibold"><a href="#products-distribution" className="hover:text-brand-red transition-colors">{t("nav.distributionTransformers")}</a></li>
-                <li className="underline font-semibold"><a href="#products-power" className="hover:text-brand-red transition-colors">{t("nav.powerTransformers")}</a></li>
-                <li className="underline font-semibold"><a href="#products-special" className="hover:text-brand-red transition-colors">{t("nav.specialTypeTransformers")}</a></li>
-                <li className="underline font-semibold"><a href="#products-dry" className="hover:text-brand-red transition-colors">{t("nav.dryTypeTransformers")}</a></li>
+                <li className="underline font-semibold"><a href={getHref("#products-distribution")} className="hover:text-brand-red transition-colors">{t("nav.distributionTransformers")}</a></li>
+                <li className="underline font-semibold"><a href={getHref("#products-power")} className="hover:text-brand-red transition-colors">{t("nav.powerTransformers")}</a></li>
+                <li className="underline font-semibold"><a href={getHref("#products-special")} className="hover:text-brand-red transition-colors">{t("nav.specialTypeTransformers")}</a></li>
+                <li className="underline font-semibold"><a href={getHref("#products-dry")} className="hover:text-brand-red transition-colors">{t("nav.dryTypeTransformers")}</a></li>
               </ul>
             </div>
 
@@ -148,7 +159,7 @@ export default function Footer() {
                 {t("footer.support")}
               </h4>
               <ul className="space-y-3.5 text-[15px] font-medium text-neutral-600">
-                <li className="underline font-semibold"><a href="#" className="hover:text-brand-red transition-colors">{t("footer.privacyPolicy")}</a></li>
+                <li className="underline font-semibold"><a href="/privacy-policy" className="hover:text-brand-red transition-colors">{t("footer.privacyPolicy")}</a></li>
                 <li className="underline font-semibold"><a href="#" className="hover:text-brand-red transition-colors">{t("footer.cookiePolicy")}</a></li>
                 <li className="underline font-semibold"><a href="#" className="hover:text-brand-red transition-colors">{t("footer.termsOfService")}</a></li>
                 <li className="underline font-semibold"><a href="#" className="hover:text-brand-red transition-colors">{t("footer.deliveryReturnPolicy")}</a></li>

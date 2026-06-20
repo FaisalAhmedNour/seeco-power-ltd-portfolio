@@ -133,6 +133,13 @@ async function main() {
     // Merge static and public folders for standalone hosting
     copyStaticAssets();
 
+    // Clean up node_modules in standalone directory to avoid bloating zip file and let cPanel manage dependencies
+    const nodeModulesPath = path.join(standaloneDir, "node_modules");
+    if (fs.existsSync(nodeModulesPath)) {
+      console.log("Cleaning up node_modules inside standalone folder to comply with CloudLinux NodeJS Selector...");
+      fs.rmSync(nodeModulesPath, { recursive: true, force: true });
+    }
+
     console.log(`Zipping standalone files from: ${standaloneDir}`);
     // Package files for production deployment
     await archiveStandaloneFolder(standaloneDir, outputZip);

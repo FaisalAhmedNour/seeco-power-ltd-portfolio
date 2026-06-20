@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { AR_One_Sans, Kanit, Montserrat } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/context/LanguageContext";
+import Header from "@/components/header/Header";
+import Footer from "@/components/footer/Footer";
+import Widgets from "@/components/widgets/Widgets";
 
 // Configure the AR One Sans font
 const arOneSansFont = AR_One_Sans({
@@ -53,7 +56,14 @@ export default function RootLayout({
         ].join(" ")}
       >
         <LanguageProvider>
-          {children}
+          <div className="relative flex flex-col min-h-screen">
+            <Header />
+            <main className="grow">
+              {children}
+            </main>
+            <Footer />
+            <Widgets />
+          </div>
         </LanguageProvider>
       </body>
     </html>

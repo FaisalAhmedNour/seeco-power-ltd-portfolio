@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
-import { privacyPolicyContent } from "./content";
+import { termsOfServiceContent } from "./content";
 
 /**
  * Address / Location pin icon for contact card.
@@ -61,20 +61,20 @@ function ChevronRightIcon() {
 }
 
 /**
- * Premium Privacy Policy page component.
+ * Premium Terms of Service page component.
  * Integrates layout structure with sidebar TOC navigation, active scroll spy highlighting,
- * and translations support for English and Bangla.
+ * and translation support for English and Bangla.
  */
-export default function PrivacyPolicyPage() {
+export default function TermsOfServicePage() {
   const { language } = useLanguage();
-  const data = privacyPolicyContent[language];
+  const data = termsOfServiceContent[language];
   const [activeSection, setActiveSection] = useState<string>("");
 
   // Update HTML Document Title dynamically based on active language context
   useEffect(() => {
     document.title = language === "bn"
-      ? "প্রাইভেসি পলিসি | SEECO Power Limited"
-      : "Privacy Policy | SEECO Power Limited";
+      ? "টার্মস অফ সার্ভিস | SEECO Power Limited"
+      : "Terms of Service | SEECO Power Limited";
   }, [language]);
 
   // Setup Scroll-Spy active section tracker
@@ -121,8 +121,7 @@ export default function PrivacyPolicyPage() {
 
   return (
     <div className="relative bg-white text-black">
-
-      {/* 2. Page Hero header Section */}
+      {/* 1. Page Hero header Section */}
       <section className="relative bg-linear-to-b from-neutral-50 via-white to-neutral-50/50 border-b border-gray-150 py-6 lg:py-10 font-montserrat">
         <div className="mx-auto max-w-310 px-6 text-center">
           {/* Breadcrumbs navigation */}
@@ -138,9 +137,6 @@ export default function PrivacyPolicyPage() {
           <h1 className="font-kanit text-[36px] md:text-[48px] font-extrabold text-neutral-900 leading-tight uppercase tracking-tight mb-3">
             {data.title}
           </h1>
-          {/* <p className="text-[20px] font-bold text-brand-red mb-4">
-            {data.companyName}
-          </p> */}
 
           {/* Dates metadata metrics */}
           <div className="flex flex-wrap items-center justify-center gap-4 text-[13px] font-medium text-gray-500">
@@ -154,7 +150,7 @@ export default function PrivacyPolicyPage() {
         </div>
       </section>
 
-      {/* 3. Main content Layout Grid (Sidebar TOC & Policy text container) */}
+      {/* 2. Main content Layout Grid (Sidebar TOC & Policy text container) */}
       <section className="mx-auto max-w-310 px-6 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
 
@@ -191,7 +187,7 @@ export default function PrivacyPolicyPage() {
           <article className="lg:col-span-3 font-montserrat text-[15px] md:text-[16px] leading-relaxed text-gray-700 space-y-8">
             {data.sections.map((section, idx) => {
               const isContactSection = section.id === "contact-information";
-              const isConsentSection = section.id === "consent";
+              const isLiabilitySection = section.id === "limitation-of-liability";
 
               return (
                 <section
@@ -200,7 +196,7 @@ export default function PrivacyPolicyPage() {
                   className={[
                     "scroll-mt-36 border-b border-gray-150",
                     idx === data.sections.length - 1 ? "pb-0 border-b-0" : "pb-8",
-                    isConsentSection ? "bg-red-50/30 p-6 md:p-8 rounded-xl border border-red-100/80" : "",
+                    isLiabilitySection ? "bg-red-50/30 p-6 md:p-8 rounded-xl border border-red-100/80" : "",
                   ].join(" ")}
                 >
                   {/* Section Title */}
@@ -298,7 +294,6 @@ export default function PrivacyPolicyPage() {
 
         </div>
       </section>
-
     </div>
   );
 }

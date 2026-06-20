@@ -1,4 +1,3 @@
-import Header from "@/components/header/Header";
 import Hero from "@/components/hero/Hero";
 import ProductsGrid from "@/components/products/ProductsGrid";
 import MarqueeBand from "@/components/marquee/MarqueeBand";
@@ -6,8 +5,6 @@ import BrandIntroduction from "@/components/brand/BrandIntroduction";
 import LatestNews from "@/components/news/LatestNews";
 import BrandBanner from "@/components/brand/BrandBanner";
 import ContactCTA from "@/components/contact/ContactCTA";
-import Footer from "@/components/footer/Footer";
-import Widgets from "@/components/widgets/Widgets";
 
 /**
  * Home landing page container.
@@ -15,10 +12,7 @@ import Widgets from "@/components/widgets/Widgets";
  */
 export default function Home() {
   return (
-    <main className="relative min-h-screen bg-white text-black overflow-x-hidden">
-      
-      {/* 1. Header (Navbar and Topbar navigation) */}
-      <Header />
+    <div className="relative bg-white text-black overflow-x-hidden">
       
       {/* 2. Hero banner segment (with slideshow rotating background) */}
       <Hero />
@@ -40,13 +34,7 @@ export default function Home() {
       
       {/* 8. Call to action contact block (with team circular image) */}
       <ContactCTA />
-      
-      {/* 9. Site footer (with dynamically drawn SVG world shipment routes map) */}
-      <Footer />
-      
-      {/* 10. Floating widgets (WhatsApp Message and Back to Top floating items) */}
-      <Widgets />
 
-    </main>
+    </div>
   );
 }

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
-import { privacyPolicyContent } from "./content";
+import { cookiePolicyContent } from "./content";
 
 /**
  * Address / Location pin icon for contact card.
@@ -61,20 +61,20 @@ function ChevronRightIcon() {
 }
 
 /**
- * Premium Privacy Policy page component.
+ * Premium Cookie Policy page component.
  * Integrates layout structure with sidebar TOC navigation, active scroll spy highlighting,
- * and translations support for English and Bangla.
+ * and translation support for English and Bangla.
  */
-export default function PrivacyPolicyPage() {
+export default function CookiePolicyPage() {
   const { language } = useLanguage();
-  const data = privacyPolicyContent[language];
+  const data = cookiePolicyContent[language];
   const [activeSection, setActiveSection] = useState<string>("");
 
   // Update HTML Document Title dynamically based on active language context
   useEffect(() => {
     document.title = language === "bn"
-      ? "প্রাইভেসি পলিসি | SEECO Power Limited"
-      : "Privacy Policy | SEECO Power Limited";
+      ? "কুকি পলিসি | SEECO Power Limited"
+      : "Cookie Policy | SEECO Power Limited";
   }, [language]);
 
   // Setup Scroll-Spy active section tracker
@@ -121,8 +121,7 @@ export default function PrivacyPolicyPage() {
 
   return (
     <div className="relative bg-white text-black">
-
-      {/* 2. Page Hero header Section */}
+      {/* 1. Page Hero header Section */}
       <section className="relative bg-linear-to-b from-neutral-50 via-white to-neutral-50/50 border-b border-gray-150 py-6 lg:py-10 font-montserrat">
         <div className="mx-auto max-w-310 px-6 text-center">
           {/* Breadcrumbs navigation */}
@@ -138,9 +137,6 @@ export default function PrivacyPolicyPage() {
           <h1 className="font-kanit text-[36px] md:text-[48px] font-extrabold text-neutral-900 leading-tight uppercase tracking-tight mb-3">
             {data.title}
           </h1>
-          {/* <p className="text-[20px] font-bold text-brand-red mb-4">
-            {data.companyName}
-          </p> */}
 
           {/* Dates metadata metrics */}
           <div className="flex flex-wrap items-center justify-center gap-4 text-[13px] font-medium text-gray-500">
@@ -154,7 +150,7 @@ export default function PrivacyPolicyPage() {
         </div>
       </section>
 
-      {/* 3. Main content Layout Grid (Sidebar TOC & Policy text container) */}
+      {/* 2. Main content Layout Grid (Sidebar TOC & Policy text container) */}
       <section className="mx-auto max-w-310 px-6 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
 
@@ -191,7 +187,7 @@ export default function PrivacyPolicyPage() {
           <article className="lg:col-span-3 font-montserrat text-[15px] md:text-[16px] leading-relaxed text-gray-700 space-y-8">
             {data.sections.map((section, idx) => {
               const isContactSection = section.id === "contact-information";
-              const isConsentSection = section.id === "consent";
+              const isManageSection = section.id === "managing-cookies";
 
               return (
                 <section
@@ -200,7 +196,6 @@ export default function PrivacyPolicyPage() {
                   className={[
                     "scroll-mt-36 border-b border-gray-150",
                     idx === data.sections.length - 1 ? "pb-0 border-b-0" : "pb-8",
-                    isConsentSection ? "bg-red-50/30 p-6 md:p-8 rounded-xl border border-red-100/80" : "",
                   ].join(" ")}
                 >
                   {/* Section Title */}
@@ -267,6 +262,36 @@ export default function PrivacyPolicyPage() {
                                 );
                               })}
                             </ul>
+                          ) : isManageSection && listGroup.subtitle ? (
+                            // Browser links layout structure
+                            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                              {listGroup.items.map((item, itemIdx) => {
+                                let linkHref = "https://support.google.com/chrome/answer/95647"; // Default to Chrome
+                                if (item.toLowerCase().includes("edge")) {
+                                  linkHref = "https://support.microsoft.com/en-us/windows/microsoft-edge-browsing-data-and-privacy-bb8174ba-9d73-dcf2-9b4a-c582b4e640dd";
+                                } else if (item.toLowerCase().includes("firefox")) {
+                                  linkHref = "https://support.mozilla.org/en-US/kb/enhanced-tracking-protection-firefox-desktop";
+                                } else if (item.toLowerCase().includes("safari")) {
+                                  linkHref = "https://support.apple.com/guide/safari/manage-cookies-sfri11471/mac";
+                                }
+
+                                return (
+                                  <li key={itemIdx}>
+                                    <a
+                                      href={linkHref}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="flex items-center justify-between p-3.5 bg-white border border-gray-150/60 rounded-md hover:border-brand-red hover:text-brand-red transition-all duration-200 shadow-xs group font-semibold text-[14px]"
+                                    >
+                                      <span>{item}</span>
+                                      <svg viewBox="0 0 20 20" aria-hidden="true" className="h-4 w-4 text-gray-400 group-hover:text-brand-red transition-colors duration-200 shrink-0">
+                                        <path fill="currentColor" fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.22 5.08a.75.75 0 111.06-1.06l5.5 5.5a.75.75 0 010 1.06l-5.5 5.5a.75.75 0 11-1.06-1.06l4.168-4.17H3.75A.75.75 0 013 10z" clipRule="evenodd" />
+                                      </svg>
+                                    </a>
+                                  </li>
+                                );
+                              })}
+                            </ul>
                           ) : (
                             // Standard Bullet Lists with styled inline arrow bullets
                             <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2.5">
@@ -298,7 +323,6 @@ export default function PrivacyPolicyPage() {
 
         </div>
       </section>
-
     </div>
   );
 }

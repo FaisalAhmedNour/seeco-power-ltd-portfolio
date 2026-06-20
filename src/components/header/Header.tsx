@@ -344,7 +344,7 @@ export default function Header() {
   const isHome = pathname === "/";
 
   return (
-    <header className="relative z-30 bg-white text-black  font-arone">
+    <header className="sticky top-0 z-50 bg-white text-black font-arone shadow-sm">
       {/* Topbar layout */}
       <div className="hidden bg-white text-[13px] md:block">
         <div className="mx-auto flex h-10 max-w-310 items-center justify-between px-6">

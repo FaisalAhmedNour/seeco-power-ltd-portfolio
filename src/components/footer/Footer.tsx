@@ -160,9 +160,9 @@ export default function Footer() {
               </h4>
               <ul className="space-y-3.5 text-[15px] font-medium text-neutral-600">
                 <li className="underline font-semibold"><a href="/privacy-policy" className="hover:text-brand-red transition-colors">{t("footer.privacyPolicy")}</a></li>
-                <li className="underline font-semibold"><a href="#" className="hover:text-brand-red transition-colors">{t("footer.cookiePolicy")}</a></li>
-                <li className="underline font-semibold"><a href="#" className="hover:text-brand-red transition-colors">{t("footer.termsOfService")}</a></li>
-                <li className="underline font-semibold"><a href="#" className="hover:text-brand-red transition-colors">{t("footer.deliveryReturnPolicy")}</a></li>
+                <li className="underline font-semibold"><a href="/cookie-policy" className="hover:text-brand-red transition-colors">{t("footer.cookiePolicy")}</a></li>
+                <li className="underline font-semibold"><a href="/terms-of-service" className="hover:text-brand-red transition-colors">{t("footer.termsOfService")}</a></li>
+                <li className="underline font-semibold"><a href="/return-policy" className="hover:text-brand-red transition-colors">{t("footer.deliveryReturnPolicy")}</a></li>
               </ul>
             </div>
 

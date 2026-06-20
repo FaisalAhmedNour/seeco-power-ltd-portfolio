@@ -124,8 +124,8 @@ export const translations: Record<"en" | "bn", TranslationSchema> = {
     brandBanner: {
       leftPara1: "SEECO Transformer is a trusted name in the energy sector, offering high-performance transformer solutions tailored to modern infrastructure needs.",
       leftPara2: "With our innovative production approach and customer-oriented mindset, we support critical energy projects across the globe. We don’t just deliver products — we deliver long-term value and reliability.",
-      rightLabel: "Positive Energy",
-      rightTitle: "Positive Power",
+      rightLabel: "Energizing Today",
+      rightTitle: "Empowering Tomorrow",
     },
     contactCTA: {
       title: "Contact Us And Start Your Project!",
@@ -208,8 +208,8 @@ export const translations: Record<"en" | "bn", TranslationSchema> = {
     brandBanner: {
       leftPara1: "সিকো ট্রান্সফরমার জ্বালানি খাতে একটি বিশ্বস্ত নাম, যা আধুনিক অবকাঠামোর প্রয়োজন অনুসারে উচ্চ-ক্ষমতাসম্পন্ন ট্রান্সফরমার সমাধান সরবরাহ করে।",
       leftPara2: "আমাদের উদ্ভাবনী উৎপাদন পদ্ধতি এবং গ্রাহক-বান্ধব মনোভাবের সাথে, আমরা বিশ্বজুড়ে গুরুত্বপূর্ণ জ্বালানি প্রকল্পগুলোতে সহায়তা করি। আমরা শুধু পণ্য সরবরাহ করি না — আমরা দীর্ঘমেয়াদী মূল্য এবং নির্ভরযোগ্যতা প্রদান করি।",
-      rightLabel: "পজিটিভ এনার্জি",
-      rightTitle: "পজিটিভ পাওয়ার",
+      rightLabel: "এনার্জাইজিং টুডে",
+      rightTitle: "এম্পাওয়ারিং টুমোরো",
     },
     contactCTA: {
       title: "আমাদের সাথে যোগাযোগ করুন এবং আপনার প্রজেক্ট শুরু করুন!",

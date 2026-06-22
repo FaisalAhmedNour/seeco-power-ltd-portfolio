@@ -188,36 +188,36 @@ Simple inspection steps can catch faults early:
 * **ইনসুলেশন রেজিস্ট্যান্স (মেগার টেস্ট):** উইন্ডিং ফেজ এবং গ্রাউন্ডের মধ্যে ইনসুলেশনের বৈদ্যুতিক প্রতিরোধ পরিমাপ করে।
 * **তেল ব্রেকডাউন ভোল্টেজ (BDV) টেস্ট:** ইনসুলেশন তেলের ডাই-ইলেকট্রিক ক্ষমতা নির্ধারণ করে। যদি বিডিভি মান ৩০ কেভির নিচে নেমে যায়, তবে তেল ফিল্টার বা পরিবর্তন করতে হবে।`
   },
-  {
-    id: "power-vs-distribution-transformers",
-    publishDate: "2026-06-05",
-    authorEn: "Asaduzzaman Chowdhury",
-    authorBn: "আসাদুজ্জামান চৌধুরী",
-    readTimeEn: "4 min read",
-    readTimeBn: "৪ মিনিট পাঠ",
-    category: "transformers",
-    image: "/images/blog-transformer-comparison.webp",
-    titleEn: "Understanding the Core Differences: Power vs. Distribution Transformers",
-    titleBn: "মূল পার্থক্যগুলো জানুন: পাওয়ার বনাম ডিস্ট্রিবিউশন ট্রান্সফরমার",
-    excerptEn: "Explore the operational, structural, and efficiency differences between transmission power transformers and load-end distribution transformers.",
-    excerptBn: "ট্রান্সমিশন পাওয়ার ট্রান্সফরমার এবং লোড-এন্ড ডিস্ট্রিবিউশন ট্রান্সফরমারের মধ্যে পরিচালনাগত, কাঠামোগত এবং দক্ষতার পার্থক্যগুলো জানুন।",
-    contentEn: `Although both operate on the principle of electromagnetic induction to change voltage levels, power transformers and distribution transformers serve completely different networks and operating profiles.
+  //   {
+  //     id: "power-vs-distribution-transformers",
+  //     publishDate: "2026-06-05",
+  //     authorEn: "Asaduzzaman Chowdhury",
+  //     authorBn: "আসাদুজ্জামান চৌধুরী",
+  //     readTimeEn: "4 min read",
+  //     readTimeBn: "৪ মিনিট পাঠ",
+  //     category: "transformers",
+  //     image: "/images/blog-transformer-comparison.webp",
+  //     titleEn: "Understanding the Core Differences: Power vs. Distribution Transformers",
+  //     titleBn: "মূল পার্থক্যগুলো জানুন: পাওয়ার বনাম ডিস্ট্রিবিউশন ট্রান্সফরমার",
+  //     excerptEn: "Explore the operational, structural, and efficiency differences between transmission power transformers and load-end distribution transformers.",
+  //     excerptBn: "ট্রান্সমিশন পাওয়ার ট্রান্সফরমার এবং লোড-এন্ড ডিস্ট্রিবিউশন ট্রান্সফরমারের মধ্যে পরিচালনাগত, কাঠামোগত এবং দক্ষতার পার্থক্যগুলো জানুন।",
+  //     contentEn: `Although both operate on the principle of electromagnetic induction to change voltage levels, power transformers and distribution transformers serve completely different networks and operating profiles.
 
-### Operational Profiles
-* **Power Transformers:** Used in transmission networks to step-up or step-down bulk voltages (typically 132kV, 230kV, or higher). They run continuously at near full-load capacity and are designed for maximum efficiency at 100% load.
-* **Distribution Transformers:** Used at the customer end to step-down medium voltages (11kV, 33kV) to consumer levels (415V, 230V). They experience highly variable load cycles throughout the day and are designed for peak efficiency around 50% to 70% load.
+  // ### Operational Profiles
+  // * **Power Transformers:** Used in transmission networks to step-up or step-down bulk voltages (typically 132kV, 230kV, or higher). They run continuously at near full-load capacity and are designed for maximum efficiency at 100% load.
+  // * **Distribution Transformers:** Used at the customer end to step-down medium voltages (11kV, 33kV) to consumer levels (415V, 230V). They experience highly variable load cycles throughout the day and are designed for peak efficiency around 50% to 70% load.
 
-### Structural Differences
-* **Size and Cooling:** Power transformers are much larger, generating significant heat, requiring forced cooling methods (ONAF, OFAF). Distribution transformers are smaller and usually naturally cooled (ONAN).
-* **Tap Changers:** Power transformers often feature On-Load Tap Changers (OLTC) to dynamically regulate grid voltages. Distribution transformers typically rely on Off-Circuit Tap Changers (OCTC) adjusted manually when isolated.`,
-    contentBn: `যদিও উভয়ই ভোল্টেজ পরিবর্তন করতে ইলেক্ট্রোম্যাগনেটিক ইন্ডাকশনের নীতিতে কাজ করে, পাওয়ার ট্রান্সফরমার এবং ডিস্ট্রিবিউশন ট্রান্সফরমার সম্পূর্ণ ভিন্ন নেটওয়ার্ক এবং পরিচালনাগত ক্ষেত্রে কাজ করে।
+  // ### Structural Differences
+  // * **Size and Cooling:** Power transformers are much larger, generating significant heat, requiring forced cooling methods (ONAF, OFAF). Distribution transformers are smaller and usually naturally cooled (ONAN).
+  // * **Tap Changers:** Power transformers often feature On-Load Tap Changers (OLTC) to dynamically regulate grid voltages. Distribution transformers typically rely on Off-Circuit Tap Changers (OCTC) adjusted manually when isolated.`,
+  //     contentBn: `যদিও উভয়ই ভোল্টেজ পরিবর্তন করতে ইলেক্ট্রোম্যাগনেটিক ইন্ডাকশনের নীতিতে কাজ করে, পাওয়ার ট্রান্সফরমার এবং ডিস্ট্রিবিউশন ট্রান্সফরমার সম্পূর্ণ ভিন্ন নেটওয়ার্ক এবং পরিচালনাগত ক্ষেত্রে কাজ করে।
 
-### পরিচালনাগত পার্থক্যসমূহ
-* **পাওয়ার ট্রান্সফরমার:** বড় ভোল্টেজ (যেমন ১৩২ কেভি, ২৩০ কেভি বা তার বেশি) বাড়াতে বা কমাতে ট্রান্সমিশন নেটওয়ার্কে ব্যবহৃত হয়। এগুলো একটানা প্রায় পূর্ণ লোড ক্ষমতায় চলে এবং ১০০% লোডে সর্বোচ্চ দক্ষতার জন্য ডিজাইন করা হয়।
-* **ডিস্ট্রিবিউশন ট্রান্সফরমার:** গ্রাহক পর্যায়ে মিডিয়াম ভোল্টেজ (১১ কেভি, ৩৩ কেভি) কমিয়ে ব্যবহারের উপযোগী স্তরে (৪১৫ ভোল্ট, ২৩০ ভোল্ট) আনতে ব্যবহৃত হয়। এগুলো সারাদিন অত্যন্ত পরিবর্তনশীল লোডের সম্মুখীন হয় এবং ৫০% থেকে ৭০% লোডের মধ্যে সর্বোচ্চ দক্ষতার জন্য ডিজাইন করা হয়।
+  // ### পরিচালনাগত পার্থক্যসমূহ
+  // * **পাওয়ার ট্রান্সফরমার:** বড় ভোল্টেজ (যেমন ১৩২ কেভি, ২৩০ কেভি বা তার বেশি) বাড়াতে বা কমাতে ট্রান্সমিশন নেটওয়ার্কে ব্যবহৃত হয়। এগুলো একটানা প্রায় পূর্ণ লোড ক্ষমতায় চলে এবং ১০০% লোডে সর্বোচ্চ দক্ষতার জন্য ডিজাইন করা হয়।
+  // * **ডিস্ট্রিবিউশন ট্রান্সফরমার:** গ্রাহক পর্যায়ে মিডিয়াম ভোল্টেজ (১১ কেভি, ৩৩ কেভি) কমিয়ে ব্যবহারের উপযোগী স্তরে (৪১৫ ভোল্ট, ২৩০ ভোল্ট) আনতে ব্যবহৃত হয়। এগুলো সারাদিন অত্যন্ত পরিবর্তনশীল লোডের সম্মুখীন হয় এবং ৫০% থেকে ৭০% লোডের মধ্যে সর্বোচ্চ দক্ষতার জন্য ডিজাইন করা হয়।
 
-### কাঠামোগত পার্থক্যসমূহ
-* **আকার এবং কুলিং:** পাওয়ার ট্রান্সফরমারগুলো অনেক বড় হয়, প্রচুর তাপ উৎপন্ন করে, তাই এতে জোরপূর্বক কুলিং পদ্ধতি (ONAF, OFAF) ব্যবহার করা হয়। ডিস্ট্রিবিউশন ট্রান্সফরমারগুলো ছোট হয় এবং সাধারণত প্রাকৃতিক কুলিং (ONAN) দ্বারা ঠান্ডা হয়।
-* **ট্যাপ চেঞ্জার:** গ্রিডের ভোল্টেজ ডায়নামিকভাবে নিয়ন্ত্রণ করতে পাওয়ার ট্রান্সফরমারগুলোতে প্রায়ই অন-লোড ট্যাপ চেঞ্জার (OLTC) থাকে। ডিস্ট্রিবিউশন ট্রান্সফরমারগুলোতে সাধারণত অফ-সার্কিট ট্যাপ চেঞ্জার (OCTC) থাকে যা বিদ্যুৎ সংযোগ বিচ্ছিন্ন থাকা অবস্থায় ম্যানুয়ালি সামঞ্জস্য করতে হয়।`
-  }
+  // ### কাঠামোগত পার্থক্যসমূহ
+  // * **আকার এবং কুলিং:** পাওয়ার ট্রান্সফরমারগুলো অনেক বড় হয়, প্রচুর তাপ উৎপন্ন করে, তাই এতে জোরপূর্বক কুলিং পদ্ধতি (ONAF, OFAF) ব্যবহার করা হয়। ডিস্ট্রিবিউশন ট্রান্সফরমারগুলো ছোট হয় এবং সাধারণত প্রাকৃতিক কুলিং (ONAN) দ্বারা ঠান্ডা হয়।
+  // * **ট্যাপ চেঞ্জার:** গ্রিডের ভোল্টেজ ডায়নামিকভাবে নিয়ন্ত্রণ করতে পাওয়ার ট্রান্সফরমারগুলোতে প্রায়ই অন-লোড ট্যাপ চেঞ্জার (OLTC) থাকে। ডিস্ট্রিবিউশন ট্রান্সফরমারগুলোতে সাধারণত অফ-সার্কিট ট্যাপ চেঞ্জার (OCTC) থাকে যা বিদ্যুৎ সংযোগ বিচ্ছিন্ন থাকা অবস্থায় ম্যানুয়ালি সামঞ্জস্য করতে হয়।`
+  //   }
 ];

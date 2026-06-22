@@ -11,11 +11,14 @@ import { NextResponse } from "next/server";
 export async function POST(request: Request) {
   try {
     const data = await request.json();
-    const { name, email, mobile, subject, message } = data;
+    const { name, email, mobile, subject, title, message } = data;
+
+    // Support both subject and title to match frontend and EmailJS naming variations
+    const finalSubject = subject || title;
 
     // Server-side validation: ensure all required fields are present
     // to prevent empty or malicious submissions.
-    if (!name || !email || !subject || !message) {
+    if (!name || !email || !finalSubject || !message) {
       return NextResponse.json(
         { error: "All fields are required." },
         { status: 400 }
@@ -79,7 +82,8 @@ export async function POST(request: Request) {
         from_name: name,
         from_email: email,
         mobile: mobile || "Not provided",
-        subject: subject,
+        subject: finalSubject,
+        title: finalSubject, // Support both {{subject}} and {{title}} in the EmailJS template
         message: message,
         to_email: "seecopowerltd@gmail.com", // Hardcoded target recipient as requested by user
       },

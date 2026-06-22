@@ -104,7 +104,7 @@ export const translations: Record<"en" | "bn", TranslationSchema> = {
       notice: "Notice",
     },
     contactInfo: {
-      address: "Ekuria Tila Bari, South Keranigonj Dhaka- 1311",
+      address: "3rd Floor, 5 BCC Rd, Dhaka 1203",
       factoryAddress: "Ekuria Tila Bari, South Keranigonj Dhaka- 1311",
       email: "info@seecopowerlimited.com",
       email2: "seecopowerltd@gmail.com",
@@ -189,7 +189,7 @@ export const translations: Record<"en" | "bn", TranslationSchema> = {
       notice: "নোটিশ",
     },
     contactInfo: {
-      address: "ইকুরিয়া টিলা বাড়ি, দক্ষিণ কেরানীগঞ্জ, ঢাকা- ১৩১১",
+      address: "৩য় তলা, ৫ বিসিসি রোড, ঢাকা ১২০৩",
       factoryAddress: "ইকুরিয়া টিলা বাড়ি, দক্ষিণ কেরানীগঞ্জ, ঢাকা- ১৩১১",
       email: "info@seecopowerlimited.com",
       email2: "seecopowerltd@gmail.com",

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useLanguage } from "@/context/LanguageContext";
@@ -131,12 +131,12 @@ function BrandSocialIcon({ platform, href }: { platform: "linkedin" | "facebook"
       target="_blank"
       rel="noopener noreferrer"
       aria-label={platform.charAt(0).toUpperCase() + platform.slice(1)}
-      className="grid h-7 w-7 place-items-center rounded-full transition-all duration-300 hover:bg-gray-100"
+      className="grid h-8 w-8 place-items-center rounded-full transition-all duration-300 hover:bg-gray-100"
     >
       <svg
         viewBox="0 0 512 512"
         aria-hidden="true"
-        className="h-3.5 w-3.5 transition-transform duration-250 hover:scale-110"
+        className="h-4.5 w-4.5 transition-transform duration-250 hover:scale-110"
       >
         {isInstagram && (
           <defs>
@@ -176,7 +176,7 @@ function HeaderDesktopNavLinks() {
 
   return (
     <nav aria-label="Primary navigation">
-      <ul className="flex items-center gap-6 font-arone font-semibold text-black">
+      <ul className="flex items-center gap-7 font-arone font-semibold text-black">
         {HEADER_NAVIGATION_ITEMS.map((item) => (
           <li
             key={item.labelKey}
@@ -187,7 +187,7 @@ function HeaderDesktopNavLinks() {
             <a
               href={getHref(item.href)}
               className={[
-                "group relative flex items-center gap-1 py-5 text-[15px] transition-colors duration-300 hover:text-brand-red",
+                "group relative flex items-center gap-1 py-7 text-[16px] transition-colors duration-300 hover:text-brand-red",
                 item.active && isHome ? "text-brand-red" : "",
               ].join(" ")}
             >
@@ -196,9 +196,9 @@ function HeaderDesktopNavLinks() {
 
               {/* Underline indicators with transitions */}
               {item.active && isHome ? (
-                <span className="absolute bottom-3 left-0 h-0.5 w-full bg-brand-red" />
+                <span className="absolute bottom-5 left-0 h-0.5 w-full bg-brand-red" />
               ) : (
-                <span className="absolute bottom-3 left-0 h-0.5 w-0 bg-brand-red transition-all duration-300 group-hover:w-full" />
+                <span className="absolute bottom-5 left-0 h-0.5 w-0 bg-brand-red transition-all duration-300 group-hover:w-full" />
               )}
             </a>
 
@@ -339,15 +339,39 @@ function HeaderMobileNavLinks({
  */
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
   const { t } = useLanguage();
   const pathname = usePathname();
   const isHome = pathname === "/";
 
+  // Handle scroll events to dynamically add styling classes
+  useEffect(() => {
+    const handleScroll = () => {
+      // Determine if page has been scrolled down
+      setHasScrolled(window.scrollY > 0);
+    };
+
+    // Initialize position check
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md text-black font-arone shadow-sm border-b border-neutral-100">
+    <header
+      className={[
+        "sticky top-0 z-50 bg-white/95 backdrop-blur-md text-black font-arone transition-all duration-300",
+        hasScrolled
+          ? "shadow-sm border-b border-neutral-100"
+          : "shadow-none border-b border-transparent",
+      ].join(" ")}
+    >
       {/* Topbar layout */}
-      <div className="hidden border-b border-neutral-100 bg-neutral-50/50 text-[12px] md:block">
-        <div className="mx-auto flex h-9 max-w-310 items-center justify-between px-6">
+      <div className="hidden border-b border-neutral-100 bg-neutral-50/50 text-[13px] md:block">
+        <div className="mx-auto flex h-10 max-w-310 items-center justify-between px-6">
           <div className="flex items-center gap-2 text-gray-600">
             <AddressPinIcon />
             <span className="truncate">
@@ -357,10 +381,10 @@ export default function Header() {
 
           <div className="flex items-center gap-6">
             {/* Hover Dropdown displaying multiple emails */}
-            <div className="relative group/email py-1.5 cursor-pointer">
-              <div className="flex items-center gap-1.5 text-gray-600 group-hover/email:text-brand-red transition-colors duration-200">
+            <div className="relative group/email cursor-pointer">
+              <div className="flex items-center gap-2 text-gray-600 group-hover/email:text-brand-red transition-colors duration-200">
                 <EnvelopeMailIcon />
-                <span>{t("contactInfo.email")}</span>
+                <span className="text-[14px]">{t("contactInfo.email")}</span>
                 {/* Chevron icon indicating click/hover dropdown interactions */}
                 <svg
                   viewBox="0 0 20 20"
@@ -378,16 +402,16 @@ export default function Header() {
                     href={`mailto:${t("contactInfo.email")}`}
                     className="block px-4 py-2 hover:bg-gray-50 transition-colors duration-150 text-left"
                   >
-                    <div className="text-[13px] font-semibold text-neutral-800 hover:text-brand-red break-all">
+                    <div className="text-[14px] font-semibold text-neutral-800 hover:text-brand-red break-all">
                       {t("contactInfo.email")}
                     </div>
                   </a>
-                  <div className="h-px bg-gray-150 my-1.5" />
+                  <div className="h-px bg-gray-150 my-0" />
                   <a
                     href={`mailto:${t("contactInfo.email2")}`}
                     className="block px-4 py-2 hover:bg-gray-50 transition-colors duration-150 text-left"
                   >
-                    <div className="text-[13px] font-semibold text-neutral-800 hover:text-brand-red break-all">
+                    <div className="text-[14px] font-semibold text-neutral-800 hover:text-brand-red break-all">
                       {t("contactInfo.email2")}
                     </div>
                   </a>
@@ -417,15 +441,15 @@ export default function Header() {
 
       {/* Main Navbar */}
       <div className="bg-transparent">
-        <div className="mx-auto flex h-16 max-w-310 items-center justify-between px-6 mb-1">
+        <div className="mx-auto flex h-22.5 max-w-310 items-center justify-between px-6">
           <a href={isHome ? "#" : "/"} className="flex items-center" aria-label="SEECO Transformer Home">
             <Image
               src="/images/SEECOI1.png"
               alt="SEECO Transformer Logo"
-              width={160}
-              height={40}
+              width={180}
+              height={45}
               priority
-              className="object-contain h-auto"
+              className="object-contain"
             />
           </a>
 

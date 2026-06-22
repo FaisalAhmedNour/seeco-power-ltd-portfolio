@@ -167,7 +167,7 @@ export const cookiePolicyContent: Record<"en" | "bn", PrivacyPolicyData> = {
             subtitle: "SEECO Power Limited",
             items: [
               "Registered Office: Ekuria Tila Bari, South Keranigonj, Dhaka-1311, Bangladesh",
-              "Phone: +88 01714-102859 / +88 01818-430308",
+              "Phone: +88 01714-102859",
               "Email: info@seecopowerlimited.com",
               "Website: www.seecopowerlimited.com"
             ]
@@ -339,7 +339,7 @@ export const cookiePolicyContent: Record<"en" | "bn", PrivacyPolicyData> = {
             subtitle: "সিকো পাওয়ার লিমিটেড",
             items: [
               "নিবন্ধিত অফিস: ইকুরিয়া টিলা বাড়ি, দক্ষিণ কেরানীগঞ্জ, ঢাকা- ১৩১১, বাংলাদেশ",
-              "ফোন: +৮৮ ০১৭১৪-১০২৮৫৯ / +৮৮ ০১৮১৮-৪৩০৩০৮",
+              "ফোন: +৮৮ ০১৭১৪-১০২৮৫৯",
               "ইমেল: info@seecopowerlimited.com",
               "ওয়েবসাইট: www.seecopowerlimited.com"
             ]

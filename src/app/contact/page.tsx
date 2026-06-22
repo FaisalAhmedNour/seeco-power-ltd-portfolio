@@ -33,7 +33,7 @@ const CONTACT_PAGE_TEXT = {
     formSubtitle: "Feel free to reach out. Our team will respond to your inquiry as soon as possible.",
 
     // Info Cards
-    office: "Headquarters",
+    office: "Head Office",
     factory: "Factory",
     phone: "Call Us",
     emailLabel: "Email Us",
@@ -46,12 +46,12 @@ const CONTACT_PAGE_TEXT = {
 
     // Form fields
     name: "আপনার নাম",
-    email: "আপনার ইমেল",
+    email: "আপনার ই-মেইল",
     mobile: "মোবাইল নম্বর",
     subject: "বিষয়",
     message: "বার্তা",
     placeholderName: "আপনার পুরো নাম লিখুন",
-    placeholderEmail: "আপনার ইমেল ঠিকানা লিখুন",
+    placeholderEmail: "আপনার ই-মেইল ঠিকানা লিখুন",
     placeholderMobile: "আপনার মোবাইল নম্বর লিখুন",
     placeholderSubject: "কোন বিষয়ে জানাতে চান?",
     placeholderMessage: "এখানে আপনার বার্তাটি লিখুন...",
@@ -66,7 +66,7 @@ const CONTACT_PAGE_TEXT = {
 
     // Info Cards
     office: "প্রধান কার্যালয়",
-    factory: "ফ্যাক্টরি",
+    factory: "কারখানা",
     phone: "ফোন করুন",
     emailLabel: "ইমেইল করুন",
   }
@@ -108,6 +108,243 @@ function PhoneIcon() {
 
 
 
+// List of country codes with code, 2-letter country code, and name for selector
+const COUNTRY_CODES = [
+  { code: "+880", country: "BD", name: "Bangladesh" }, // Default option at top
+  { code: "+93", country: "AF", name: "Afghanistan" },
+  { code: "+355", country: "AL", name: "Albania" },
+  { code: "+213", country: "DZ", name: "Algeria" },
+  { code: "+1-684", country: "AS", name: "American Samoa" },
+  { code: "+376", country: "AD", name: "Andorra" },
+  { code: "+244", country: "AO", name: "Angola" },
+  { code: "+1-264", country: "AI", name: "Anguilla" },
+  { code: "+672", country: "AQ", name: "Antarctica" },
+  { code: "+1-268", country: "AG", name: "Antigua and Barbuda" },
+  { code: "+54", country: "AR", name: "Argentina" },
+  { code: "+374", country: "AM", name: "Armenia" },
+  { code: "+297", country: "AW", name: "Aruba" },
+  { code: "+61", country: "AU", name: "Australia" },
+  { code: "+43", country: "AT", name: "Austria" },
+  { code: "+994", country: "AZ", name: "Azerbaijan" },
+  { code: "+1-242", country: "BS", name: "Bahamas" },
+  { code: "+973", country: "BH", name: "Bahrain" },
+  { code: "+1-246", country: "BB", name: "Barbados" },
+  { code: "+375", country: "BY", name: "Belarus" },
+  { code: "+32", country: "BE", name: "Belgium" },
+  { code: "+501", country: "BZ", name: "Belize" },
+  { code: "+229", country: "BJ", name: "Benin" },
+  { code: "+1-441", country: "BM", name: "Bermuda" },
+  { code: "+975", country: "BT", name: "Bhutan" },
+  { code: "+591", country: "BO", name: "Bolivia" },
+  { code: "+387", country: "BA", name: "Bosnia and Herzegovina" },
+  { code: "+267", country: "BW", name: "Botswana" },
+  { code: "+55", country: "BR", name: "Brazil" },
+  { code: "+246", country: "IO", name: "British Indian Ocean Territory" },
+  { code: "+1-284", country: "VG", name: "British Virgin Islands" },
+  { code: "+673", country: "BN", name: "Brunei" },
+  { code: "+359", country: "BG", name: "Bulgaria" },
+  { code: "+226", country: "BF", name: "Burkina Faso" },
+  { code: "+257", country: "BI", name: "Burundi" },
+  { code: "+855", country: "KH", name: "Cambodia" },
+  { code: "+237", country: "CM", name: "Cameroon" },
+  { code: "+1", country: "CA", name: "Canada" },
+  { code: "+238", country: "CV", name: "Cape Verde" },
+  { code: "+1-345", country: "KY", name: "Cayman Islands" },
+  { code: "+236", country: "CF", name: "Central African Republic" },
+  { code: "+235", country: "TD", name: "Chad" },
+  { code: "+56", country: "CL", name: "Chile" },
+  { code: "+86", country: "CN", name: "China" },
+  { code: "+61", country: "CX", name: "Christmas Island" },
+  { code: "+61", country: "CC", name: "Cocos (Keeling) Islands" },
+  { code: "+57", country: "CO", name: "Colombia" },
+  { code: "+269", country: "KM", name: "Comoros" },
+  { code: "+242", country: "CG", name: "Congo (Republic)" },
+  { code: "+243", country: "CD", name: "Congo (Democratic Republic)" },
+  { code: "+682", country: "CK", name: "Cook Islands" },
+  { code: "+506", country: "CR", name: "Costa Rica" },
+  { code: "+385", country: "HR", name: "Croatia" },
+  { code: "+53", country: "CU", name: "Cuba" },
+  { code: "+357", country: "CY", name: "Cyprus" },
+  { code: "+420", country: "CZ", name: "Czech Republic" },
+  { code: "+45", country: "DK", name: "Denmark" },
+  { code: "+253", country: "DJ", name: "Djibouti" },
+  { code: "+1-767", country: "DM", name: "Dominica" },
+  { code: "+1-809", country: "DO", name: "Dominican Republic" },
+  { code: "+593", country: "EC", name: "Ecuador" },
+  { code: "+20", country: "EG", name: "Egypt" },
+  { code: "+503", country: "SV", name: "El Salvador" },
+  { code: "+240", country: "GQ", name: "Equatorial Guinea" },
+  { code: "+291", country: "ER", name: "Eritrea" },
+  { code: "+372", country: "EE", name: "Estonia" },
+  { code: "+251", country: "ET", name: "Ethiopia" },
+  { code: "+500", country: "FK", name: "Falkland Islands" },
+  { code: "+298", country: "FO", name: "Faroe Islands" },
+  { code: "+679", country: "FJ", name: "Fiji" },
+  { code: "+358", country: "FI", name: "Finland" },
+  { code: "+33", country: "FR", name: "France" },
+  { code: "+594", country: "GF", name: "French Guiana" },
+  { code: "+689", country: "PF", name: "French Polynesia" },
+  { code: "+241", country: "GA", name: "Gabon" },
+  { code: "+220", country: "GM", name: "Gambia" },
+  { code: "+995", country: "GE", name: "Georgia" },
+  { code: "+49", country: "DE", name: "Germany" },
+  { code: "+233", country: "GH", name: "Ghana" },
+  { code: "+350", country: "GI", name: "Gibraltar" },
+  { code: "+30", country: "GR", name: "Greece" },
+  { code: "+299", country: "GL", name: "Greenland" },
+  { code: "+1-473", country: "GD", name: "Grenada" },
+  { code: "+590", country: "GP", name: "Guadeloupe" },
+  { code: "+1-671", country: "GU", name: "Guam" },
+  { code: "+502", country: "GT", name: "Guatemala" },
+  { code: "+224", country: "GN", name: "Guinea" },
+  { code: "+245", country: "GW", name: "Guinea-Bissau" },
+  { code: "+592", country: "GY", name: "Guyana" },
+  { code: "+509", country: "HT", name: "Haiti" },
+  { code: "+504", country: "HN", name: "Honduras" },
+  { code: "+852", country: "HK", name: "Hong Kong" },
+  { code: "+36", country: "HU", name: "Hungary" },
+  { code: "+354", country: "IS", name: "Iceland" },
+  { code: "+91", country: "IN", name: "India" },
+  { code: "+62", country: "ID", name: "Indonesia" },
+  { code: "+98", country: "IR", name: "Iran" },
+  { code: "+964", country: "IQ", name: "Iraq" },
+  { code: "+353", country: "IE", name: "Ireland" },
+  { code: "+972", country: "IL", name: "Israel" },
+  { code: "+39", country: "IT", name: "Italy" },
+  { code: "+225", country: "CI", name: "Ivory Coast" },
+  { code: "+1-876", country: "JM", name: "Jamaica" },
+  { code: "+81", country: "JP", name: "Japan" },
+  { code: "+962", country: "JO", name: "Jordan" },
+  { code: "+7", country: "KZ", name: "Kazakhstan" },
+  { code: "+254", country: "KE", name: "Kenya" },
+  { code: "+686", country: "KI", name: "Kiribati" },
+  { code: "+850", country: "KP", name: "North Korea" },
+  { code: "+82", country: "KR", name: "South Korea" },
+  { code: "+965", country: "KW", name: "Kuwait" },
+  { code: "+996", country: "KG", name: "Kyrgyzstan" },
+  { code: "+856", country: "LA", name: "Laos" },
+  { code: "+371", country: "LV", name: "Latvia" },
+  { code: "+961", country: "LB", name: "Lebanon" },
+  { code: "+266", country: "LS", name: "Lesotho" },
+  { code: "+231", country: "LR", name: "Liberia" },
+  { code: "+218", country: "LY", name: "Libya" },
+  { code: "+423", country: "LI", name: "Liechtenstein" },
+  { code: "+370", country: "LT", name: "Lithuania" },
+  { code: "+352", country: "LU", name: "Luxembourg" },
+  { code: "+853", country: "MO", name: "Macau" },
+  { code: "+389", country: "MK", name: "Macedonia" },
+  { code: "+261", country: "MG", name: "Madagascar" },
+  { code: "+265", country: "MW", name: "Malawi" },
+  { code: "+60", country: "MY", name: "Malaysia" },
+  { code: "+960", country: "MV", name: "Maldives" },
+  { code: "+223", country: "ML", name: "Mali" },
+  { code: "+356", country: "MT", name: "Malta" },
+  { code: "+692", country: "MH", name: "Marshall Islands" },
+  { code: "+596", country: "MQ", name: "Martinique" },
+  { code: "+222", country: "MR", name: "Mauritania" },
+  { code: "+230", country: "MU", name: "Mauritius" },
+  { code: "+262", country: "YT", name: "Mayotte" },
+  { code: "+52", country: "MX", name: "Mexico" },
+  { code: "+691", country: "FM", name: "Micronesia" },
+  { code: "+373", country: "MD", name: "Moldova" },
+  { code: "+377", country: "MC", name: "Monaco" },
+  { code: "+976", country: "MN", name: "Mongolia" },
+  { code: "+382", country: "ME", name: "Montenegro" },
+  { code: "+1-664", country: "MS", name: "Montserrat" },
+  { code: "+212", country: "MA", name: "Morocco" },
+  { code: "+258", country: "MZ", name: "Mozambique" },
+  { code: "+95", country: "MM", name: "Myanmar" },
+  { code: "+264", country: "NA", name: "Namibia" },
+  { code: "+674", country: "NR", name: "Nauru" },
+  { code: "+977", country: "NP", name: "Nepal" },
+  { code: "+31", country: "NL", name: "Netherlands" },
+  { code: "+687", country: "NC", name: "New Caledonia" },
+  { code: "+64", country: "NZ", name: "New Zealand" },
+  { code: "+505", country: "NI", name: "Nicaragua" },
+  { code: "+227", country: "NE", name: "Niger" },
+  { code: "+234", country: "NG", name: "Nigeria" },
+  { code: "+683", country: "NU", name: "Niue" },
+  { code: "+672", country: "NF", name: "Norfolk Island" },
+  { code: "+1-670", country: "MP", name: "Northern Mariana Islands" },
+  { code: "+47", country: "NO", name: "Norway" },
+  { code: "+968", country: "OM", name: "Oman" },
+  { code: "+92", country: "PK", name: "Pakistan" },
+  { code: "+680", country: "PW", name: "Palau" },
+  { code: "+970", country: "PS", name: "Palestine" },
+  { code: "+507", country: "PA", name: "Panama" },
+  { code: "+675", country: "PG", name: "Papua New Guinea" },
+  { code: "+595", country: "PY", name: "Paraguay" },
+  { code: "+51", country: "PE", name: "Peru" },
+  { code: "+63", country: "PH", name: "Philippines" },
+  { code: "+48", country: "PL", name: "Poland" },
+  { code: "+351", country: "PT", name: "Portugal" },
+  { code: "+1-787", country: "PR", name: "Puerto Rico" },
+  { code: "+974", country: "QA", name: "Qatar" },
+  { code: "+262", country: "RE", name: "Reunion" },
+  { code: "+40", country: "RO", name: "Romania" },
+  { code: "+7", country: "RU", name: "Russia" },
+  { code: "+250", country: "RW", name: "Rwanda" },
+  { code: "+590", country: "BL", name: "Saint Barthelemy" },
+  { code: "+290", country: "SH", name: "Saint Helena" },
+  { code: "+1-869", country: "KN", name: "Saint Kitts and Nevis" },
+  { code: "+1-758", country: "LC", name: "Saint Lucia" },
+  { code: "+590", country: "MF", name: "Saint Martin" },
+  { code: "+508", country: "PM", name: "Saint Pierre and Miquelon" },
+  { code: "+1-784", country: "VC", name: "Saint Vincent and the Grenadines" },
+  { code: "+685", country: "WS", name: "Samoa" },
+  { code: "+378", country: "SM", name: "San Marino" },
+  { code: "+239", country: "ST", name: "Sao Tome and Principe" },
+  { code: "+966", country: "SA", name: "Saudi Arabia" },
+  { code: "+221", country: "SN", name: "Senegal" },
+  { code: "+381", country: "RS", name: "Serbia" },
+  { code: "+248", country: "SC", name: "Seychelles" },
+  { code: "+232", country: "SL", name: "Sierra Leone" },
+  { code: "+65", country: "SG", name: "Singapore" },
+  { code: "+421", country: "SK", name: "Slovakia" },
+  { code: "+386", country: "SI", name: "Slovenia" },
+  { code: "+677", country: "SB", name: "Solomon Islands" },
+  { code: "+252", country: "SO", name: "Somalia" },
+  { code: "+27", country: "ZA", name: "South Africa" },
+  { code: "+34", country: "ES", name: "Spain" },
+  { code: "+94", country: "LK", name: "Sri Lanka" },
+  { code: "+249", country: "SD", name: "Sudan" },
+  { code: "+597", country: "SR", name: "Suriname" },
+  { code: "+268", country: "SZ", name: "Swaziland" },
+  { code: "+46", country: "SE", name: "Sweden" },
+  { code: "+41", country: "CH", name: "Switzerland" },
+  { code: "+963", country: "SY", name: "Syria" },
+  { code: "+886", country: "TW", name: "Taiwan" },
+  { code: "+992", country: "TJ", name: "Tajikistan" },
+  { code: "+255", country: "TZ", name: "Tanzania" },
+  { code: "+66", country: "TH", name: "Thailand" },
+  { code: "+228", country: "TG", name: "Togo" },
+  { code: "+690", country: "TK", name: "Tokelau" },
+  { code: "+676", country: "TO", name: "Tonga" },
+  { code: "+1-868", country: "TT", name: "Trinidad and Tobago" },
+  { code: "+216", country: "TN", name: "Tunisia" },
+  { code: "+90", country: "TR", name: "Turkey" },
+  { code: "+993", country: "TM", name: "Turkmenistan" },
+  { code: "+1-649", country: "TC", name: "Turks and Caicos Islands" },
+  { code: "+688", country: "TV", name: "Tuvalu" },
+  { code: "+256", country: "UG", name: "Uganda" },
+  { code: "+380", country: "UA", name: "Ukraine" },
+  { code: "+971", country: "AE", name: "United Arab Emirates" },
+  { code: "+44", country: "GB", name: "United Kingdom" },
+  { code: "+1", country: "US", name: "United States" },
+  { code: "+598", country: "UY", name: "Uruguay" },
+  { code: "+998", country: "UZ", name: "Uzbekistan" },
+  { code: "+678", country: "VU", name: "Vanuatu" },
+  { code: "+379", country: "VA", name: "Vatican City" },
+  { code: "+58", country: "VE", name: "Venezuela" },
+  { code: "+84", country: "VN", name: "Vietnam" },
+  { code: "+1-284", country: "VG", name: "Virgin Islands (British)" },
+  { code: "+1-340", country: "VI", name: "Virgin Islands (US)" },
+  { code: "+681", country: "WF", name: "Wallis and Futuna" },
+  { code: "+967", country: "YE", name: "Yemen" },
+  { code: "+260", country: "ZM", name: "Zambia" },
+  { code: "+263", country: "ZW", name: "Zimbabwe" }
+];
+
 /**
  * Contact Page Component.
  * Implements a modern, responsive layout presenting Seeco Power's official
@@ -120,7 +357,8 @@ export default function ContactPage() {
   // Form field states
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [mobile, setMobile] = useState("");
+  const [countryCode, setCountryCode] = useState("+880");
+  const [mobileNumber, setMobileNumber] = useState("");
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
 
@@ -134,20 +372,24 @@ export default function ContactPage() {
     setIsSubmitting(true);
     setSubmitSuccess(null);
 
+    // Combine country code and mobile number if input has value
+    const fullMobile = mobileNumber.trim() ? `${countryCode} ${mobileNumber.trim()}` : "";
+
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name, email, mobile, subject, message }),
+        body: JSON.stringify({ name, email, mobile: fullMobile, subject, message }),
       });
 
       if (response.ok) {
         setSubmitSuccess(true);
         setName("");
         setEmail("");
-        setMobile("");
+        setCountryCode("+880");
+        setMobileNumber("");
         setSubject("");
         setMessage("");
       } else {
@@ -176,7 +418,7 @@ export default function ContactPage() {
             {/* Left Column: Official Contact Details Cards */}
             <div className="lg:col-span-5 space-y-4">
               <div className="space-y-2">
-                <span className="text-[14px] font-bold text-brand-red uppercase tracking-widest block">
+                <span className="text-[16px] font-extrabold text-brand-red uppercase tracking-widest block">
                   {text.subtitle}
                 </span>
                 <h2 className="font-kanit text-[32px] font-bold text-neutral-900 leading-8">
@@ -233,9 +475,9 @@ export default function ContactPage() {
                       <a href={`tel:${t("contactInfo.phone")}`} className="hover:text-brand-red transition-colors w-fit font-semibold">
                         {t("contactInfo.phone")}
                       </a>
-                      <a href="tel:+8801818430308" className="hover:text-brand-red transition-colors w-fit">
+                      {/* <a href="tel:+8801818430308" className="hover:text-brand-red transition-colors w-fit">
                         +88 01818-430308
-                      </a>
+                      </a> */}
                     </div>
                   </div>
                 </div>
@@ -315,14 +557,28 @@ export default function ContactPage() {
                     <label htmlFor="mobile" className="text-[14px] font-bold text-neutral-800 flex items-center gap-1.5">
                       {text.mobile} <span className="text-neutral-400 text-[12px] font-medium">({language === "bn" ? "ঐচ্ছিক" : "Optional"})</span>
                     </label>
-                    <input
-                      id="mobile"
-                      type="tel"
-                      value={mobile}
-                      onChange={(e) => setMobile(e.target.value)}
-                      placeholder={text.placeholderMobile}
-                      className="w-full px-4 py-3 rounded-lg border border-neutral-200 focus:outline-hidden focus:border-brand-red focus:ring-1 focus:ring-brand-red text-[15px] transition-all bg-neutral-50/50"
-                    />
+                    <div className="flex rounded-lg border border-neutral-200 focus-within:border-brand-red focus-within:ring-1 focus-within:ring-brand-red transition-all bg-neutral-50/50 overflow-hidden">
+                      <select
+                        aria-label="Country Code"
+                        value={countryCode}
+                        onChange={(e) => setCountryCode(e.target.value)}
+                        className="bg-transparent pl-3 pr-2 py-3 border-r border-neutral-200 text-[15px] focus:outline-hidden text-neutral-700 font-medium cursor-pointer"
+                      >
+                        {COUNTRY_CODES.map((item) => (
+                          <option key={`${item.country}-${item.code}`} value={item.code}>
+                            {item.country} ({item.code})
+                          </option>
+                        ))}
+                      </select>
+                      <input
+                        id="mobile"
+                        type="tel"
+                        value={mobileNumber}
+                        onChange={(e) => setMobileNumber(e.target.value)}
+                        placeholder={text.placeholderMobile}
+                        className="w-full px-4 py-3 bg-transparent focus:outline-hidden text-[15px]"
+                      />
+                    </div>
                   </div>
 
                   <div className="space-y-2">

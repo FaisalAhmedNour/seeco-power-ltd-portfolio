@@ -79,8 +79,8 @@ export async function POST(request: Request) {
       user_id: publicKey,
       accessToken: privateKey, // Optional but highly recommended for backend REST calls to authenticate private templates
       template_params: {
-        from_name: name,
-        from_email: email,
+        name: name,
+        email: email,
         mobile: mobile || "Not provided",
         subject: finalSubject,
         title: finalSubject, // Support both {{subject}} and {{title}} in the EmailJS template

@@ -37,7 +37,7 @@ const HEADER_NAVIGATION_ITEMS: NavigationLinkItem[] = [
     ],
   },
   { labelKey: "nav.service", href: "#marquee-band" },
-  { labelKey: "nav.blog", href: "#blog" },
+  { labelKey: "nav.blog", href: "/blog" },
   { labelKey: "nav.contact", href: "/contact" },
   { labelKey: "nav.notice", href: "/notices" },
 ];
@@ -189,6 +189,7 @@ function HeaderDesktopNavLinks() {
               className={[
                 "group relative flex items-center gap-1 py-7 text-[16px] transition-colors duration-300 hover:text-brand-red",
                 item.active && isHome ? "text-brand-red" : "",
+                item.labelKey === "nav.notice" ? "animate-notice-bounce text-brand-red font-bold" : "",
               ].join(" ")}
             >
               {t(item.labelKey)}
@@ -311,6 +312,7 @@ function HeaderMobileNavLinks({
                     className={[
                       "block py-2 text-[16px] transition-colors duration-200 hover:text-brand-red",
                       item.active && isHome ? "text-brand-red" : "",
+                      item.labelKey === "nav.notice" ? "animate-notice-bounce text-brand-red font-bold" : "",
                     ].join(" ")}
                   >
                     {t(item.labelKey)}
@@ -369,6 +371,32 @@ export default function Header() {
           : "shadow-none border-b border-transparent",
       ].join(" ")}
     >
+      <style>{`
+        @keyframes notice-attention-bounce {
+          0%, 80%, 100% {
+            transform: scale(1) translateY(0);
+          }
+          83% {
+            transform: scale(1.1, 0.9) translateY(0);
+          }
+          86% {
+            transform: scale(0.9, 1.1) translateY(-8px);
+          }
+          89% {
+            transform: scale(1.05, 0.95) translateY(2px);
+          }
+          92% {
+            transform: scale(0.98, 1.02) translateY(-1px);
+          }
+          95% {
+            transform: scale(1) translateY(0);
+          }
+        }
+        .animate-notice-bounce {
+          animation: notice-attention-bounce 6s infinite ease-in-out;
+          display: inline-flex;
+        }
+      `}</style>
       {/* Topbar layout */}
       <div className="hidden border-b border-neutral-100 bg-neutral-50/50 text-[13px] md:block">
         <div className="mx-auto flex h-10 max-w-310 items-center justify-between px-6">
@@ -384,7 +412,7 @@ export default function Header() {
             <div className="relative group/email cursor-pointer">
               <div className="flex items-center gap-2 text-gray-600 group-hover/email:text-brand-red transition-colors duration-200">
                 <EnvelopeMailIcon />
-                <span className="text-[14px]">{t("contactInfo.email")}</span>
+                <span className="text-[14px] mb-1">{t("contactInfo.email")}</span>
                 {/* Chevron icon indicating click/hover dropdown interactions */}
                 <svg
                   viewBox="0 0 20 20"

@@ -50,10 +50,9 @@ export default function ContactCTA() {
             </div>
           </div>
 
-          {/* Right Column: CTA Button (spans 3/12 on lg) */}
           <div className="flex justify-center lg:col-span-3 lg:justify-end">
             <a
-              href={`mailto:${t("contactInfo.email")}?subject=Transformer%20RFQ`}
+              href="/contact"
               className="inline-flex w-full items-center justify-center gap-3 border-2 border-brand-red bg-transparent px-8 py-4.5 text-base font-bold text-neutral-950 transition-all duration-300 hover:bg-brand-red hover:text-white rounded-md sm:w-auto"
             >
               <span>{t("contactCTA.button")}</span>

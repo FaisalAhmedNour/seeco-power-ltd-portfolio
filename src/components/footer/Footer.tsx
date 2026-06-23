@@ -150,10 +150,10 @@ export default function Footer() {
                 <li className="underline font-semibold"><a href="/products/power-transformers" className="hover:text-brand-red transition-colors">{t("nav.powerTransformers")}</a></li>
                 <li className="underline font-semibold"><a href="/products/special-type-transformers" className="hover:text-brand-red transition-colors">{t("nav.specialTypeTransformers")}</a></li>
                 <li className="underline font-semibold"><a href="/products/dry-type-transformers" className="hover:text-brand-red transition-colors">{t("nav.dryTypeTransformers")}</a></li>
-                <li className="underline font-semibold"><a href="/products/lovol-diesel-generator" className="hover:text-brand-red transition-colors">{t("nav.lovolDiselGenerator")}</a></li>
+                {/* <li className="underline font-semibold"><a href="/products/lovol-diesel-generator" className="hover:text-brand-red transition-colors">{t("nav.lovolDiselGenerator")}</a></li>
                 <li className="underline font-semibold"><a href="/products/electric-switchgear" className="hover:text-brand-red transition-colors">{t("nav.electricSwitchgear")}</a></li>
                 <li className="underline font-semibold"><a href="/products/bbt-bus-bar-trunking" className="hover:text-brand-red transition-colors">{t("nav.bbtBusBarTrunkingSystem")}</a></li>
-                <li className="underline font-semibold"><a href="/products/renewable-energy" className="hover:text-brand-red transition-colors">{t("nav.renewableEnergy")}</a></li>
+                <li className="underline font-semibold"><a href="/products/renewable-energy" className="hover:text-brand-red transition-colors">{t("nav.renewableEnergy")}</a></li> */}
               </ul>
             </div>
 

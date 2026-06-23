@@ -126,7 +126,7 @@ export default function AboutUsPage() {
       />
 
       {/* 2. Introduction Section */}
-      <section className="py-16 px-6">
+      <section className="py-10 px-6">
         <div className="mx-auto max-w-310">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
 
@@ -135,7 +135,7 @@ export default function AboutUsPage() {
               <span className="text-[12px] font-bold text-brand-red uppercase tracking-widest bg-red-50 px-3.5 py-1.5 rounded-full border border-red-100">
                 {t.introSubtitle}
               </span>
-              <h2 className="pt-2 font-kanit text-[32px] md:text-[42px] font-bold text-neutral-900 leading-tight">
+              <h2 className="pt-3 font-kanit text-[32px] md:text-[42px] font-bold text-neutral-900 leading-tight">
                 {t.introTitle}
               </h2>
               <p className="text-[15.5px] leading-relaxed text-neutral-600 font-medium">
@@ -215,7 +215,7 @@ export default function AboutUsPage() {
         <div className="mx-auto max-w-310">
 
           {/* Section Heading & descriptive label */}
-          <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
+          <div className="text-center max-w-3xl mx-auto mb-8 space-y-4">
             <h2 className="font-kanit text-[32px] md:text-[40px] font-bold text-neutral-900 leading-tight">
               {t.certificationsTitle}
             </h2>
@@ -276,7 +276,7 @@ export default function AboutUsPage() {
       </section>
 
       {/* 5. Request For Quotation Call To Action Segment */}
-      <section className="py-12 px-6">
+      <section className="px-6">
         <div className="mx-auto max-w-310">
           <div className="bg-white border border-neutral-100 rounded-3xl p-8 md:p-12 text-center max-w-4xl mx-auto shadow-md relative overflow-hidden">
             <div className="absolute inset-0 bg-[#0B3A72]/5 pointer-events-none" />

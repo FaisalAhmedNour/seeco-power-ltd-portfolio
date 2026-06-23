@@ -20,7 +20,7 @@ interface NavigationLinkItem {
 // Navigation links config matching the site structure
 const HEADER_NAVIGATION_ITEMS: NavigationLinkItem[] = [
   { labelKey: "nav.home", href: "#", active: true },
-  { labelKey: "nav.aboutUs", href: "#about" },
+  { labelKey: "nav.aboutUs", href: "/about" },
   {
     labelKey: "nav.products",
     href: "#products",

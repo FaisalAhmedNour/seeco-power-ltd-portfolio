@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import PageHeader from "@/components/widgets/PageHeader";
+import MissionVisionValues from "@/components/about/MissionVisionValues";
 
 // Local translation dictionary for bilingual support (English and Bengali).
 // Keeps the component fully self-contained, modular, and easy to maintain.
@@ -15,10 +16,24 @@ const ABOUT_TRANSLATIONS = {
     introTitle: "Leading Electrical Solutions Provider",
     introPara1: "SEECO Power Limited (SPL) is a leading engineering enterprise in the energy sector of Bangladesh. Specializing in the design, manufacturing, testing, and servicing of high-quality Distribution and Power Transformers, BBT (Bus Bar Trunking Systems), Switchgear, and Diesel Generators, we have established ourselves as a benchmark for quality and engineering excellence.",
     introPara2: "From our modern production factory located in Ekuria Tila Bari, South Keranigonj, Dhaka, our state-of-the-art machinery and highly experienced engineers produce solutions tailored to utility grids, solar power parks, heavy industries, and commercial high-rise buildings. We do not just build electrical equipment — we engineer long-term energy infrastructure.",
-    missionTitle: "Our Mission",
-    missionText: "To deliver reliable, safe, and energy-efficient power solutions that empower industries, support national grid development, and shape a sustainable future through uncompromising engineering excellence and client-centric service.",
-    visionTitle: "Our Vision",
-    visionText: "To be South Asia's most trusted and innovative manufacturer of heavy electrical machinery, recognized for quality leadership, green energy grid integration, and pioneering technical standards.",
+    missionVisionValuesTitle: "Our Mission, Vision & Values",
+    missionLabel: "Mission",
+    visionLabel: "Vision",
+    valuesLabel: "Values",
+    missionPoints: [
+      "To manufacture high-quality, cost effective transformers suited to Bangladesh's environmental and grid conditions",
+      "To support government and private sector power projects with reliable solutions",
+      "To reduce dependency on imported transformers through local production",
+      "To ensure compliance with Bangladesh standards and international benchmarks"
+    ],
+    visionText: "To become a leading transformer manufacturer in Bangladesh by delivering world-class products that ensure sustainable and uninterrupted power across the country.",
+    valuesPoints: [
+      "Power Transformers (up to 132kV and beyond)",
+      "Distribution Transformers (11kV / 33kV)",
+      "Pad-mounted Transformers",
+      "Special Purpose Transformers (industrial/customized)",
+      "Transformer Repair, Maintenance & Retrofitting Services"
+    ],
     certificationsTitle: "Certifications & Compliance",
     certificationsSubtitle: "We adhere to strict international and national quality standards to ensure safety, durability, and reliability.",
     placeholderText: "Certificate Document Placeholder",
@@ -61,10 +76,24 @@ const ABOUT_TRANSLATIONS = {
     introTitle: "উন্নত বৈদ্যুতিক সমাধান সরবরাহকারী",
     introPara1: "সিকো পাওয়ার লিমিটেড (এসপিএল) বাংলাদেশের জ্বালানি খাতের একটি শীর্ষস্থানীয় ইঞ্জিনিয়ারিং প্রতিষ্ঠান। উচ্চমানের ডিস্ট্রিবিউশন ও পাওয়ার ট্রান্সফরমার, বিবিটি (বাস বার ট্রাংকিং সিস্টেম), সুইচগিয়ার এবং ডিজেল জেনারেটরের ডিজাইন, উৎপাদন, টেস্টিং এবং সেবা প্রদানের মাধ্যমে আমরা নিজেদের গুণমান ও প্রকৌশল উৎকর্ষের একটি প্রতীক হিসেবে প্রতিষ্ঠিত করেছি।",
     introPara2: "ঢাকা দক্ষিণ কেরানীগঞ্জের একুরিয়া টিলা বাড়িতে অবস্থিত আমাদের আধুনিক উৎপাদন কারখানায় অত্যাধুনিক যন্ত্রপাতি এবং অত্যন্ত অভিজ্ঞ প্রকৌশলী দল ইউটিলিটি গ্রিড, সৌর বিদ্যুৎ প্রকল্প, ভারী শিল্প এবং বাণিজ্যিক ভবনের জন্য কাস্টমাইজড সমাধান তৈরি করে থাকেন। আমরা কেবল বৈদ্যুতিক সরঞ্জামই তৈরি করি না — আমরা দীর্ঘমেয়াদী বিদ্যুৎ অবকাঠামো গড়ে তুলি।",
-    missionTitle: "আমাদের লক্ষ্য (Mission)",
-    missionText: "আপসহীন প্রকৌশল উৎকর্ষ এবং গ্রাহক-কেন্দ্রিক সেবার মাধ্যমে নির্ভরযোগ্য, নিরাপদ এবং সাশ্রয়ী বিদ্যুৎ সমাধান সরবরাহ করা যা শিল্প প্রতিষ্ঠানসমূহকে শক্তিশালী করবে, জাতীয় গ্রিডের উন্নয়ন ঘটাবে এবং একটি টেকসই শক্তির ভবিষ্যত গড়ে তুলবে।",
-    visionTitle: "আমাদের ভিশন (Vision)",
-    visionText: "মানের দিক থেকে সেরা নেতৃত্ব, নবায়নযোগ্য জ্বালানি গ্রিড সংযোগ এবং অগ্রণী প্রযুক্তিগত মানদণ্ডের জন্য দক্ষিণ এশিয়ার সবচেয়ে বিশ্বস্ত এবং উদ্ভাবনী ভারী বৈদ্যুতিক সরঞ্জাম প্রস্তুতকারক প্রতিষ্ঠান হিসেবে আত্মপ্রকাশ করা।",
+    missionVisionValuesTitle: "আমাদের মিশন, ভিশন ও মূল্যবোধ",
+    missionLabel: "মিশন",
+    visionLabel: "ভিশন",
+    valuesLabel: "মূল্যবোধ",
+    missionPoints: [
+      "বাংলাদেশের পরিবেশ ও গ্রিড ব্যবস্থার উপযোগী উচ্চমানসম্পন্ন এবং সাশ্রয়ী মূল্যের ট্রান্সফরমার প্রস্তুত করা",
+      "নির্ভরযোগ্য সমাধানের মাধ্যমে সরকারি ও বেসরকারি খাতের বিদ্যুৎ প্রকল্পসমূহে সহায়তা প্রদান করা",
+      "স্থানীয় উৎপাদনের মাধ্যমে আমদানিকৃত ট্রান্সফরমারের উপর নির্ভরশীলতা হ্রাস করা",
+      "বাংলাদেশ মানদণ্ড এবং আন্তর্জাতিক মানের সাথে সম্মতি নিশ্চিত করা"
+    ],
+    visionText: "দেশব্যাপী টেকসই এবং নিরবচ্ছিন্ন বিদ্যুৎ নিশ্চিত করতে বিশ্বমানের পণ্য সরবরাহের মাধ্যমে বাংলাদেশে একটি শীর্ষস্থানীয় ট্রান্সফরমার প্রস্তুতকারী প্রতিষ্ঠান হওয়া।",
+    valuesPoints: [
+      "পাওয়ার ট্রান্সফরমার (১৩২কেভি এবং এর বেশি)",
+      "ডিস্ট্রিবিউশন ট্রান্সফরমার (১১কেভি / ৩৩কেভি)",
+      "প্যাড-মাউন্টেড ট্রান্সফরমার",
+      "বিশেষ উদ্দেশ্যের ট্রান্সফরমার (শিল্প/কাস্টমাইজড)",
+      "ট্রান্সফরমার মেরামত, রক্ষণাবেক্ষণ ও রেটরোফিটিং সেবা"
+    ],
     certificationsTitle: "সার্টিফিকেশন ও কমপ্লায়েন্স",
     certificationsSubtitle: "নিরাপত্তা, স্থায়িত্ব এবং নির্ভরযোগ্যতা নিশ্চিত করতে আমরা কঠোর আন্তর্জাতিক ও জাতীয় মানদণ্ড মেনে চলি।",
     placeholderText: "সার্টিফিকেট ডকুমেন্ট প্লেসহোল্ডার",
@@ -164,51 +193,8 @@ export default function AboutUsPage() {
         </div>
       </section>
 
-      {/* 3. Mission & Vision Section */}
-      <section className="py-16 bg-neutral-900 text-white relative overflow-hidden">
-        {/* Decorative background glows */}
-        <div className="absolute top-0 left-0 w-80 h-80 bg-[#0B3A72] opacity-35 rounded-full blur-3xl -ml-20 -mt-20" />
-        <div className="absolute bottom-0 right-0 w-80 h-80 bg-brand-red opacity-15 rounded-full blur-3xl -mr-20 -mb-20" />
-
-        <div className="relative z-10 mx-auto max-w-310 px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-
-            {/* Mission Card container */}
-            <div className="bg-neutral-800/50 backdrop-blur-sm border border-neutral-800 rounded-2xl p-8 hover:border-brand-red transition-all duration-300 group">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-red-950/50 border border-brand-red/30 text-brand-red mb-6 group-hover:scale-110 transition-transform duration-300">
-                {/* SVG Target Icon representing corporate missions */}
-                <svg fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="h-6 w-6">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z" />
-                </svg>
-              </div>
-              <h3 className="font-kanit text-[24px] font-bold text-white mb-4">
-                {t.missionTitle}
-              </h3>
-              <p className="text-[14.5px] leading-relaxed text-neutral-400 font-medium">
-                {t.missionText}
-              </p>
-            </div>
-
-            {/* Vision Card container */}
-            <div className="bg-neutral-800/50 backdrop-blur-sm border border-neutral-800 rounded-2xl p-8 hover:border-[#0B3A72] transition-all duration-300 group">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-blue-950/50 border border-blue-900/30 text-blue-400 mb-6 group-hover:scale-110 transition-transform duration-300">
-                {/* SVG Compass Icon representing long-term corporate vision */}
-                <svg fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="h-6 w-6">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                </svg>
-              </div>
-              <h3 className="font-kanit text-[24px] font-bold text-white mb-4">
-                {t.visionTitle}
-              </h3>
-              <p className="text-[14.5px] leading-relaxed text-neutral-400 font-medium">
-                {t.visionText}
-              </p>
-            </div>
-
-          </div>
-        </div>
-      </section>
+      {/* 3. Mission, Vision & Values Section */}
+      <MissionVisionValues />
 
       {/* 4. Certifications Section */}
       <section className="py-16 px-6">

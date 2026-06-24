@@ -4,7 +4,7 @@
   --font-arone: var(--font-arone), sans-serif;
   --font-kanit: var(--font-kanit), sans-serif;
   --font-montserrat: var(--font-montserrat), sans-serif;
-  
+
   --color-brand-red: #dc2626;
   --color-brand-red-hover: #ff0000;
 }
@@ -46,6 +46,7 @@ button {
   from {
     transform: scale(1.0);
   }
+
   to {
     transform: scale(1.12);
   }
@@ -59,8 +60,13 @@ button {
 
 /* Vertical marquee scrolling keyframes */
 @keyframes scrollUp {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(-50%); }
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-50%);
+  }
 }
 
 .vertical-marquee {
@@ -68,7 +74,7 @@ button {
   top: 0;
   left: 0;
   width: 100%;
-  height: 400px;
+  height: 500px;
   overflow: hidden;
   pointer-events: none;
   z-index: 10;
@@ -85,7 +91,7 @@ button {
   font-size: 1rem;
   padding: 1.5rem 1rem;
   text-align: left;
-  opacity: 0.5;
+  opacity: 0.9;
 }
 
 /* Map animation styles */
@@ -120,7 +126,7 @@ button {
 
 .er-hotspot {
   position: absolute;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   cursor: pointer;
   z-index: 10;
 }
@@ -129,11 +135,11 @@ button {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  background: rgba(220,30,30,0.2);
+  background: rgba(220, 30, 30, 0.2);
   animation: erPulse 3.2s ease-out infinite;
 }
 
@@ -153,7 +159,7 @@ button {
   border: 2px solid #fff;
   position: relative;
   z-index: 2;
-  box-shadow: 0 0 7px rgba(220,30,30,0.9);
+  box-shadow: 0 0 7px rgba(220, 30, 30, 0.9);
   transition: transform .2s;
 }
 
@@ -167,14 +173,14 @@ button {
   bottom: 16px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(0,0,0,0.88);
+  background: rgba(0, 0, 0, 0.88);
   color: #dc1e1e;
   font-size: 11px;
   font-weight: 600;
   white-space: nowrap;
   padding: 4px 10px;
   border-radius: 5px;
-  border: 1px solid rgba(220,30,30,0.4);
+  border: 1px solid rgba(220, 30, 30, 0.4);
   pointer-events: none;
   opacity: 0;
   transition: opacity .2s;
@@ -187,7 +193,7 @@ button {
 
 .er-hotspot-turkey {
   position: absolute;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   cursor: pointer;
   z-index: 20;
 }
@@ -196,9 +202,9 @@ button {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   border-radius: 50%;
-  background: rgba(220,30,30,0.15);
+  background: rgba(220, 30, 30, 0.15);
   animation: erTurkeyPulse 2.8s ease-out infinite;
 }
 
@@ -228,7 +234,7 @@ button {
   border: 3px solid #fff;
   position: relative;
   z-index: 2;
-  box-shadow: 0 0 14px rgba(220,30,30,1), 0 0 28px rgba(220,30,30,0.5);
+  box-shadow: 0 0 14px rgba(220, 30, 30, 1), 0 0 28px rgba(220, 30, 30, 0.5);
   animation: erTurkeyGlow 2.8s ease-in-out infinite;
 }
 
@@ -245,44 +251,51 @@ button {
   padding: 3px 9px;
   border-radius: 20px;
   letter-spacing: .08em;
-  box-shadow: 0 2px 8px rgba(220,30,30,0.5);
+  box-shadow: 0 2px 8px rgba(220, 30, 30, 0.5);
 }
 
 @keyframes erTurkeyPulse {
   0% {
     opacity: .7;
-    transform: translate(-50%,-50%) scale(.3);
+    transform: translate(-50%, -50%) scale(.3);
   }
+
   70% {
     opacity: 0;
-    transform: translate(-50%,-50%) scale(1);
+    transform: translate(-50%, -50%) scale(1);
   }
+
   100% {
     opacity: 0;
   }
 }
 
 @keyframes erTurkeyGlow {
-  0%, 100% {
-    box-shadow: 0 0 10px rgba(220,30,30,0.9), 0 0 20px rgba(220,30,30,0.4);
+
+  0%,
+  100% {
+    box-shadow: 0 0 10px rgba(220, 30, 30, 0.9), 0 0 20px rgba(220, 30, 30, 0.4);
   }
+
   50% {
-    box-shadow: 0 0 20px rgba(220,30,30,1), 0 0 40px rgba(220,30,30,0.7);
+    box-shadow: 0 0 20px rgba(220, 30, 30, 1), 0 0 40px rgba(220, 30, 30, 0.7);
   }
 }
 
 @keyframes erPulse {
   0% {
     opacity: .9;
-    transform: translate(-50%,-50%) scale(.3);
+    transform: translate(-50%, -50%) scale(.3);
   }
+
   70% {
     opacity: 0;
-    transform: translate(-50%,-50%) scale(2.4);
+    transform: translate(-50%, -50%) scale(2.4);
   }
+
   100% {
     opacity: 0;
-    transform: translate(-50%,-50%) scale(2.6);
+    transform: translate(-50%, -50%) scale(2.6);
   }
 }
 
@@ -291,6 +304,7 @@ button {
     opacity: 0;
     transform: translate(-50%, calc(-50% + 5px));
   }
+
   to {
     opacity: 1;
     transform: translate(-50%, -50%);

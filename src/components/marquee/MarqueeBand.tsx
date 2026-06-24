@@ -33,7 +33,7 @@ export default function MarqueeBand() {
   return (
     <section
       id="marquee-band"
-      className="relative min-h-125 w-full overflow-hidden bg-neutral-200 font-arone"
+      className="relative min-h-125 w-full overflow-hidden font-arone"
     >
 
       {/* Background Video Element with Fallback Poster Image */}
@@ -42,7 +42,7 @@ export default function MarqueeBand() {
         muted
         loop
         playsInline
-        className="absolute inset-0 z-0 h-full w-full object-cover opacity-100"
+        className="absolute inset-0 z-0 h-full w-full object-cover"
       >
         <source
           src="/images/Transformer-1900-x-600-px.mp4"
@@ -81,13 +81,13 @@ export default function MarqueeBand() {
                 {SPECIALTY_TRANSFORMERS.map((item, index) => (
                   <div
                     key={`marq-1-${index}`}
-                    className="marquee-item text-[17px] font-medium tracking-wide text-white uppercase opacity-75"
+                    className="marquee-item text-[17px] font-medium tracking-wide text-white uppercase"
                   >
                     <div className="flex items-center gap-2">
                       <span className="text-[25px] leading-tight shrink-0">•</span>
                       <div className="flex flex-col text-left">
-                        <span className="leading-tight">{item.en}</span>
-                        <span className="text-[16px] text-gray-100 normal-case mt-1 font-normal font-sans">
+                        <span className="leading-tight text-white">{item.en}</span>
+                        <span className="text-[16px] text-white normal-case mt-1 font-normal font-sans">
                           {item.bn}
                         </span>
                       </div>
@@ -97,13 +97,13 @@ export default function MarqueeBand() {
                 {SPECIALTY_TRANSFORMERS.map((item, index) => (
                   <div
                     key={`marq-2-${index}`}
-                    className="marquee-item text-[17px] font-medium tracking-wide text-white uppercase opacity-75"
+                    className="marquee-item text-[17px] font-medium tracking-wide text-white uppercase"
                   >
                     <div className="flex items-start gap-2">
                       <span className="text-[25px] leading-tight shrink-0">•</span>
                       <div className="flex flex-col text-left">
-                        <span className="leading-tight">{item.en}</span>
-                        <span className="text-[16px] text-gray-100 normal-case mt-1 font-bold font-sans">
+                        <span className="leading-tight text-white">{item.en}</span>
+                        <span className="text-[16px] text-white normal-case mt-1 font-bold font-sans">
                           {item.bn}
                         </span>
                       </div>

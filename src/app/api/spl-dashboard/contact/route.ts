@@ -58,6 +58,8 @@ export async function GET() {
           if (row.setting_key === "contact_email") info.email = row.setting_value;
           if (row.setting_key === "contact_email2") info.email2 = row.setting_value;
           if (row.setting_key === "contact_phone") info.phone = row.setting_value;
+          if (row.setting_key === "contact_phone2") info.phone2 = row.setting_value;
+          if (row.setting_key === "contact_whatsapp") info.whatsapp = row.setting_value;
         });
       }
     } catch (error) {
@@ -78,7 +80,7 @@ export async function PUT(request: Request) {
 
   try {
     const data = await request.json();
-    const { addressEn, addressBn, factoryAddressEn, factoryAddressBn, email, email2, phone } = data;
+    const { addressEn, addressBn, factoryAddressEn, factoryAddressBn, email, email2, phone, phone2, whatsapp } = data;
 
     if (isDbConfigured()) {
       try {
@@ -90,6 +92,8 @@ export async function PUT(request: Request) {
           { key: "contact_email", value: email },
           { key: "contact_email2", value: email2 },
           { key: "contact_phone", value: phone },
+          { key: "contact_phone2", value: phone2 },
+          { key: "contact_whatsapp", value: whatsapp },
         ];
 
         for (const s of settingsToUpdate) {
@@ -114,6 +118,8 @@ export async function PUT(request: Request) {
       email: email || "",
       email2: email2 || "",
       phone: phone || "",
+      phone2: phone2 || "",
+      whatsapp: whatsapp || "",
     });
 
     return NextResponse.json({ success: true, message: "Contact information updated successfully." }, { status: 200 });

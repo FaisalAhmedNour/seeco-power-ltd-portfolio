@@ -5,6 +5,7 @@ import { LanguageProvider } from "@/context/LanguageContext";
 import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
 import Widgets from "@/components/widgets/Widgets";
+import WelcomeModal from "@/components/widgets/WelcomeModal";
 import { getSiteSettings } from "@/lib/settings";
 import SiteThemeInitializer from "@/components/widgets/SiteThemeInitializer";
 
@@ -32,10 +33,16 @@ const montserratFont = Montserrat({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: "SEECO Power Limited",
-  description: "SEECO Power Limited leads the industry with reliable, transformer solutions, shaping the future of energy.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSiteSettings();
+  return {
+    title: "SEECO Power Limited",
+    description: "SEECO Power Limited leads the industry with reliable, transformer solutions, shaping the future of energy.",
+    icons: {
+      icon: settings.faviconPath || "/icon.png",
+    },
+  };
+}
 
 /**
  * RootLayout Component.
@@ -81,7 +88,7 @@ export default async function RootLayout({
         ].join(" ")}
         suppressHydrationWarning
       >
-        <LanguageProvider>
+        <LanguageProvider initialSettings={settings}>
           <SiteThemeInitializer />
           <div className="relative flex flex-col min-h-screen">
             <Header />
@@ -90,6 +97,7 @@ export default async function RootLayout({
             </main>
             <Footer />
             <Widgets />
+            <WelcomeModal />
           </div>
         </LanguageProvider>
       </body>

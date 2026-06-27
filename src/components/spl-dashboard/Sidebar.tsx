@@ -2,6 +2,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { useDashboard } from "@/context/DashboardContext";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface SidebarItem {
   label: string;
@@ -17,6 +18,7 @@ interface SidebarItem {
 export default function Sidebar() {
   const pathname = usePathname();
   const { theme } = useDashboard();
+  const { logoPath } = useLanguage();
 
   const menuItems: SidebarItem[] = [
     {
@@ -96,6 +98,24 @@ export default function Sidebar() {
 
 
     {
+      label: "About Us",
+      href: "/spl-dashboard/about",
+      icon: (
+        <svg fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="h-5 w-5">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5zm6-10.125a1.875 1.875 0 1 1-3.75 0 1.875 1.875 0 0 1 3.75 0zm1.294 6.336a6.721 6.721 0 0 1-3.17.789 6.721 6.721 0 0 1-3.168-.789 3.376 3.376 0 0 1 6.338 0z" />
+        </svg>
+      ),
+    },
+    {
+      label: "Policies",
+      href: "/spl-dashboard/policies",
+      icon: (
+        <svg fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="h-5 w-5">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+        </svg>
+      ),
+    },
+    {
       label: "Contact Info",
       href: "/spl-dashboard/contact",
       icon: (
@@ -124,7 +144,7 @@ export default function Sidebar() {
       <div className="h-20 flex items-center px-6 border-b border-dash-border relative">
         <Link href="/spl-dashboard" className="flex items-center gap-2">
           <Image
-            src="/images/SEECOI1.png"
+            src={logoPath || "/images/SEECOI1.png"}
             alt="SEECO Logo"
             width={120}
             height={30}

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useId } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useLanguage } from "@/context/LanguageContext";
@@ -111,6 +112,7 @@ function MobileMenuButtonIcon({ open }: { open: boolean }) {
  * Social media platform icons mapping to premium vector path nodes.
  */
 function BrandSocialIcon({ platform, href }: { platform: "linkedin" | "facebook" | "instagram" | "youtube"; href: string }) {
+  const gradientId = useId().replace(/:/g, ""); // Ensure ID string is valid without colons
   const socialPaths = {
     linkedin: "M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z",
     facebook: "M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z",
@@ -141,7 +143,7 @@ function BrandSocialIcon({ platform, href }: { platform: "linkedin" | "facebook"
       >
         {isInstagram && (
           <defs>
-            <linearGradient id="instagram-brand-gradient" x1="100%" y1="100%" x2="0%" y2="0%">
+            <linearGradient id={`instagram-gradient-${gradientId}`} x1="100%" y1="100%" x2="0%" y2="0%">
               <stop offset="0%" stopColor="#f9ce34" />
               <stop offset="30%" stopColor="#ee2a7b" />
               <stop offset="100%" stopColor="#6228d7" />
@@ -150,7 +152,7 @@ function BrandSocialIcon({ platform, href }: { platform: "linkedin" | "facebook"
         )}
         <path
           d={socialPaths[platform]}
-          fill={isInstagram ? "url(#instagram-brand-gradient)" : undefined}
+          fill={isInstagram ? `url(#instagram-gradient-${gradientId})` : undefined}
           className={isInstagram ? undefined : iconColorClasses[platform]}
         />
       </svg>
@@ -237,9 +239,14 @@ function HeaderMobileNavLinks({
   onClose: () => void;
 }) {
   const [dropdownExpanded, setDropdownExpanded] = useState(false);
-  const { t } = useLanguage();
+  const [mounted, setMounted] = useState(false);
+  const { t, language, socialLinks } = useLanguage();
   const pathname = usePathname();
   const isHome = pathname === "/";
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const getHref = (href: string) => {
     if (isHome) return href;
@@ -248,10 +255,12 @@ function HeaderMobileNavLinks({
     return href;
   };
 
-  return (
+  if (!mounted) return null;
+
+  return createPortal(
     <div
       className={[
-        "fixed inset-0 z-40 bg-black/50 transition-opacity duration-300 lg:hidden",
+        "fixed inset-0 z-9999 bg-black/50 transition-opacity duration-300 lg:hidden",
         isOpened ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",
       ].join(" ")}
       onClick={onClose}
@@ -278,7 +287,7 @@ function HeaderMobileNavLinks({
         <nav aria-label="Mobile navigation">
           <ul className="flex flex-col gap-2 font-arone font-semibold text-black">
             {HEADER_NAVIGATION_ITEMS.map((item) => (
-              <li key={item.labelKey} className="border-b border-gray-100 py-1">
+              <li key={item.labelKey} className="border-b border-gray-150 py-1">
                 {item.hasDropdown ? (
                   <div>
                     <button
@@ -334,10 +343,33 @@ function HeaderMobileNavLinks({
             <PublicColorPicker />
           </div>
         </div>
+
+        {/* Mobile Social Links Section */}
+        <div className="mt-6 pt-6 border-t border-gray-150 flex flex-col gap-3">
+          <span className="text-[12px] font-bold text-gray-400 uppercase tracking-wider">
+            {language === "bn" ? "আমাদের সামাজিক লিংক" : "Social Links"}
+          </span>
+          <div className="flex items-center gap-2">
+            {socialLinks?.linkedin && (
+              <BrandSocialIcon platform="linkedin" href={socialLinks.linkedin} />
+            )}
+            {socialLinks?.facebook && (
+              <BrandSocialIcon platform="facebook" href={socialLinks.facebook} />
+            )}
+            {socialLinks?.instagram && (
+              <BrandSocialIcon platform="instagram" href={socialLinks.instagram} />
+            )}
+            {socialLinks?.youtube && (
+              <BrandSocialIcon platform="youtube" href={socialLinks.youtube} />
+            )}
+          </div>
+        </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
+
 
 /**
  * Header Component containing topbar and navigation bar.
@@ -346,7 +378,7 @@ function HeaderMobileNavLinks({
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
-  const { t } = useLanguage();
+  const { t, logoPath, socialLinks } = useLanguage();
   const pathname = usePathname();
   const isHome = pathname === "/";
 
@@ -374,7 +406,7 @@ export default function Header() {
   return (
     <header
       className={[
-        "sticky top-0 z-50 bg-white/95 backdrop-blur-md text-black font-arone transition-all duration-300",
+        "sticky top-0 z-9999 bg-white/95 backdrop-blur-md text-black font-arone transition-all duration-300",
         hasScrolled
           ? "shadow-sm border-b border-neutral-100"
           : "shadow-none border-b border-transparent",
@@ -457,20 +489,31 @@ export default function Header() {
             </div>
 
             <a
-              href="tel:+8801818430308"
+              href={`tel:${t("contactInfo.phone")}`}
               className="flex items-center gap-1.5 text-gray-600 hover:text-brand-red transition-colors duration-200"
             >
               <TelephonyPhoneIcon />
-              <span>{t("contactInfo.phone")}</span>
+              <span>
+                {t("contactInfo.phone")}
+                {t("contactInfo.phone2") ? ` / ${t("contactInfo.phone2")}` : ""}
+              </span>
             </a>
 
             <div className="h-4 w-px bg-gray-250" />
 
             <div className="flex items-center gap-1">
-              <BrandSocialIcon platform="linkedin" href="http://www.linkedin.com/in/seeco-power-limited-132341417" />
-              <BrandSocialIcon platform="facebook" href="https://www.facebook.com/seecopowerlimited" />
-              <BrandSocialIcon platform="instagram" href="https://www.instagram.com/seecopowerltd" />
-              <BrandSocialIcon platform="youtube" href="https://youtube.com/@seecopowerlimited?si=FQoSyl9caktLh6n1" />
+              {socialLinks?.linkedin && (
+                <BrandSocialIcon platform="linkedin" href={socialLinks.linkedin} />
+              )}
+              {socialLinks?.facebook && (
+                <BrandSocialIcon platform="facebook" href={socialLinks.facebook} />
+              )}
+              {socialLinks?.instagram && (
+                <BrandSocialIcon platform="instagram" href={socialLinks.instagram} />
+              )}
+              {socialLinks?.youtube && (
+                <BrandSocialIcon platform="youtube" href={socialLinks.youtube} />
+              )}
             </div>
           </div>
         </div>
@@ -481,7 +524,7 @@ export default function Header() {
         <div className="mx-auto flex h-22.5 max-w-310 items-center justify-between px-6">
           <a href={isHome ? "#" : "/"} className="flex items-center" aria-label="SEECO Transformer Home">
             <Image
-              src="/images/SEECOI1.png"
+              src={logoPath || "/images/SEECOI1.png"}
               alt="SEECO Transformer Logo"
               width={180}
               height={45}

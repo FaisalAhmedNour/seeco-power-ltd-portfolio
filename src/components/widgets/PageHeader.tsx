@@ -32,7 +32,7 @@ export default function PageHeader({
   const { language } = useLanguage();
 
   return (
-    <section className="mx-auto max-w-310 pt-6 font-montserrat">
+    <section className="mx-auto max-w-310 pt-6 px-4 font-montserrat">
       <div className="relative overflow-hidden rounded-[20px] bg-neutral-900 py-12 md:py-16 text-center text-white shadow-md">
 
         {/* Background image container for context-appropriate branding */}

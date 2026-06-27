@@ -18,17 +18,21 @@ export default function BrandBanner() {
         <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-2">
 
           {/* Left Column: Descriptive Trust Text */}
-          <div className="text-[16px] leading-relaxed text-gray-700 space-y-5 border-r-4 border-brand-red pr-8 md:pr-12">
+          <div className="text-[16px] leading-relaxed text-gray-700 space-y-5 md:border-r-4 md:border-brand-red md:pr-12 pb-6 md:pb-0">
             <p>
-              {language === "en" ? (
-                <>
-                  <strong className="text-brand-red font-bold">SEECO Transformer</strong> is a trusted name in the energy sector, offering high-performance transformer solutions tailored to modern infrastructure needs.
-                </>
-              ) : (
-                <>
-                  <strong className="text-brand-red font-bold">সিকো ট্রান্সফরমার</strong> জ্বালানি খাতে একটি বিশ্বস্ত নাম, যা আধুনিক অবকাঠামোর প্রয়োজন অনুসারে উচ্চ-ক্ষমতাসম্পন্ন ট্রান্সফরমার সমাধান সরবরাহ করে।
-                </>
-              )}
+              {(() => {
+                const text = t("brandBanner.leftPara1");
+                const highlight = language === "en" ? "SEECO Transformer" : "সিকো ট্রান্সফরমার";
+                if (!text.includes(highlight)) return text;
+                const parts = text.split(highlight);
+                return (
+                  <>
+                    {parts[0]}
+                    <strong className="text-brand-red font-bold">{highlight}</strong>
+                    {parts[1]}
+                  </>
+                );
+              })()}
             </p>
             <p>
               {t("brandBanner.leftPara2")}

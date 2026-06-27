@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import PageHeader from "@/components/widgets/PageHeader";
 import { returnPolicyContent } from "./content";
+import { parseMarkdownToPolicy, PolicyContent } from "@/lib/policyParser";
 
 /**
  * Chevron right icon for breadcrumbs.
@@ -22,8 +23,13 @@ function ChevronRightIcon() {
  * and translation support for English and Bangla.
  */
 export default function ReturnPolicyPage() {
-  const { language } = useLanguage();
-  const data = returnPolicyContent[language];
+  const { language, policies } = useLanguage();
+  const rawMarkdown = policies
+    ? (language === "bn" ? policies.returnBn : policies.returnEn)
+    : "";
+  const data = (rawMarkdown
+    ? parseMarkdownToPolicy(rawMarkdown, language === "bn" ? "রিটার্ন পলিসি" : "Return Policy")
+    : returnPolicyContent[language]) as PolicyContent;
   const [activeSection, setActiveSection] = useState<string>("");
 
   // Update HTML Document Title dynamically based on active language context

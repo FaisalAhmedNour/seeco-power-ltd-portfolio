@@ -5,12 +5,15 @@ import BrandIntroduction from "@/components/brand/BrandIntroduction";
 import LatestNews from "@/components/news/LatestNews";
 import BrandBanner from "@/components/brand/BrandBanner";
 import ContactCTA from "@/components/contact/ContactCTA";
+import { getSiteSettings } from "@/lib/settings";
 
 /**
  * Home landing page container.
  * Integrates all homepage blocks in their correct chronological stack order.
  */
-export default function Home() {
+export default async function Home() {
+  const settings = await getSiteSettings();
+
   return (
     <div className="relative bg-white text-black overflow-x-hidden">
       
@@ -21,7 +24,7 @@ export default function Home() {
       <ProductsGrid />
       
       {/* 4. specialties marquee with looping video overlay background */}
-      <MarqueeBand />
+      <MarqueeBand scrollingTexts={settings.scrollingTexts} />
       
       {/* 5. Brand text copy segment (High Quality Distribution & Power) */}
       <BrandIntroduction />

@@ -95,7 +95,7 @@ export default function Hero() {
   const descriptionText = currentSlide.description[language] || currentSlide.description["en"] || "";
 
   return (
-    <section className="relative h-[calc(100vh-64px)] md:h-[calc(100vh-100px)] min-h-125 overflow-hidden bg-white font-arone round-t-md rounded-t-3xl">
+    <section className="relative h-[calc(100vh-64px)] md:h-[calc(100vh-100px)] min-h-[520px] sm:min-h-[560px] overflow-hidden bg-white font-arone round-t-md rounded-t-3xl">
 
       {/* Background Slideshow Container */}
       <div className="absolute inset-0 z-0 bg-neutral-900">
@@ -131,12 +131,12 @@ export default function Hero() {
 
       {/* Content layout wrapper */}
       <div className="relative z-20 flex h-full items-center px-6 md:px-12">
-        <div className="mx-auto flex w-full max-w-310 justify-end lg:justify-end pb-12 md:pb-24">
+        <div className="mx-auto flex w-full max-w-310 justify-center lg:justify-end pb-8 md:pb-16 px-4">
           
           {/* Wrapper key={currentSlideIndex} forces full mount/re-trigger of CSS animations on slide change */}
           <div
             key={currentSlideIndex}
-            className="text-center text-white lg:text-right space-y-4 animate-hero-text select-none max-w-3xl"
+            className="text-center text-white lg:text-right space-y-4 animate-hero-text select-none w-full max-w-3xl"
           >
             {/* Upper Badge Tag */}
             {badgeText && (

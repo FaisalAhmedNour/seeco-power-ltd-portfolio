@@ -23,6 +23,8 @@ export async function GET() {
           if (row.setting_key === "contact_email") info.email = row.setting_value;
           if (row.setting_key === "contact_email2") info.email2 = row.setting_value;
           if (row.setting_key === "contact_phone") info.phone = row.setting_value;
+          if (row.setting_key === "contact_phone2") info.phone2 = row.setting_value;
+          if (row.setting_key === "contact_whatsapp") info.whatsapp = row.setting_value;
         });
       }
     } catch (err) {

@@ -348,7 +348,7 @@ const COUNTRY_CODES = [
  * details, an interactive contact submission form, and a location map frame.
  */
 export default function ContactPage() {
-  const { language, t } = useLanguage();
+  const { language, t, googleMapsEmbedUrl } = useLanguage();
   const text = CONTACT_PAGE_TEXT[language as "en" | "bn"] || CONTACT_PAGE_TEXT.en;
 
   // Form field states
@@ -473,9 +473,11 @@ export default function ContactPage() {
                       <a href={`tel:${t("contactInfo.phone")}`} className="hover:text-brand-red transition-colors w-fit font-semibold">
                         {t("contactInfo.phone")}
                       </a>
-                      {/* <a href="tel:+8801818430308" className="hover:text-brand-red transition-colors w-fit">
-                        +88 01818-430308
-                      </a> */}
+                      {t("contactInfo.phone2") && (
+                        <a href={`tel:${t("contactInfo.phone2")}`} className="hover:text-brand-red transition-colors w-fit font-semibold">
+                          {t("contactInfo.phone2")}
+                        </a>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -493,9 +495,11 @@ export default function ContactPage() {
                       <a href={`mailto:${t("contactInfo.email")}`} className="hover:text-brand-red transition-colors break-all font-semibold">
                         {t("contactInfo.email")}
                       </a>
-                      <a href={`mailto:${t("contactInfo.email2")}`} className="hover:text-brand-red transition-colors break-all">
-                        {t("contactInfo.email2")}
-                      </a>
+                      {t("contactInfo.email2") && (
+                        <a href={`mailto:${t("contactInfo.email2")}`} className="hover:text-brand-red transition-colors break-all">
+                          {t("contactInfo.email2")}
+                        </a>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -661,14 +665,14 @@ export default function ContactPage() {
           <div className="overflow-hidden rounded-2xl shadow-md border border-neutral-100 bg-white p-3">
             {/* Google Map iframe centered around Ekuria Tila Bari, South Keranigonj, Dhaka */}
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3653.7970229477864!2d90.4149776!3d23.6832157!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b900021a5b69%3A0xc06a1d879677ec5!2sSEECO%20Power%20Limited!5e0!3m2!1sen!2sbd!4v1781979253429!5m2!1sen!2sbd"
+              src={googleMapsEmbedUrl}
               width="100%"
               height="450"
               style={{ border: 0 }}
               allowFullScreen={true}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              className="w-full h-112.5 transition-all duration-700 rounded-xl"
+              className="w-full h-64 md:h-96 lg:h-112.5 transition-all duration-700 rounded-xl"
               title="SEECO Power Limited Headquarters Map Location"
             ></iframe>
             {/* <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3653.7970229477864!2d90.4149776!3d23.6832157!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b900021a5b69%3A0xc06a1d879677ec5!2sSEECO%20Power%20Limited!5e0!3m2!1sen!2sbd!4v1781979253429!5m2!1sen!2sbd" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> */}

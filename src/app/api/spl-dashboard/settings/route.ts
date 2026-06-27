@@ -87,22 +87,54 @@ export async function POST(request: Request) {
 
   try {
     const body = await request.json();
-    const { username, password, primaryColor } = body;
+    const { username, password, primaryColor, scrollingTexts, logoPath, faviconPath, contactCTAImagePath, brandBannerSlogan, socialLinks, googleMapsEmbedUrl, aboutIntro, aboutImagePath, missionVision, policies, welcomeModal, brandIntro, brandBanner } = body;
 
-    // Handle primary color update specifically
-    if (primaryColor) {
-      const hoverColor = darkenColor(primaryColor, 15);
-      const isDbSaved = await updateSiteSettings({
-        primaryColor,
-        primaryColorHover: hoverColor,
-      });
+    // Handle primary color, scrolling texts, slogans, logo, favicon, Contact CTA, socialLinks, map url, about/mission/vision/policies, welcomeModal, brandIntro, or brandBanner updates
+    if (
+      primaryColor !== undefined ||
+      scrollingTexts !== undefined ||
+      logoPath !== undefined ||
+      faviconPath !== undefined ||
+      contactCTAImagePath !== undefined ||
+      brandBannerSlogan !== undefined ||
+      socialLinks !== undefined ||
+      googleMapsEmbedUrl !== undefined ||
+      aboutIntro !== undefined ||
+      aboutImagePath !== undefined ||
+      missionVision !== undefined ||
+      policies !== undefined ||
+      welcomeModal !== undefined ||
+      brandIntro !== undefined ||
+      brandBanner !== undefined
+    ) {
+      const currentSettings = await getSiteSettings();
+      const updatedSettings = {
+        primaryColor: primaryColor !== undefined ? primaryColor : currentSettings.primaryColor,
+        primaryColorHover: primaryColor !== undefined ? darkenColor(primaryColor, 15) : currentSettings.primaryColorHover,
+        scrollingTexts: scrollingTexts !== undefined ? scrollingTexts : currentSettings.scrollingTexts,
+        logoPath: logoPath !== undefined ? logoPath : currentSettings.logoPath,
+        faviconPath: faviconPath !== undefined ? faviconPath : currentSettings.faviconPath,
+        contactCTAImagePath: contactCTAImagePath !== undefined ? contactCTAImagePath : currentSettings.contactCTAImagePath,
+        brandBannerSlogan: brandBannerSlogan !== undefined ? brandBannerSlogan : currentSettings.brandBannerSlogan,
+        socialLinks: socialLinks !== undefined ? socialLinks : currentSettings.socialLinks,
+        googleMapsEmbedUrl: googleMapsEmbedUrl !== undefined ? googleMapsEmbedUrl : currentSettings.googleMapsEmbedUrl,
+        aboutIntro: aboutIntro !== undefined ? aboutIntro : currentSettings.aboutIntro,
+        aboutImagePath: aboutImagePath !== undefined ? aboutImagePath : currentSettings.aboutImagePath,
+        missionVision: missionVision !== undefined ? missionVision : currentSettings.missionVision,
+        policies: policies !== undefined ? policies : currentSettings.policies,
+        welcomeModal: welcomeModal !== undefined ? welcomeModal : currentSettings.welcomeModal,
+        brandIntro: brandIntro !== undefined ? brandIntro : currentSettings.brandIntro,
+        brandBanner: brandBanner !== undefined ? brandBanner : currentSettings.brandBanner,
+      };
+
+      const isDbSaved = await updateSiteSettings(updatedSettings);
 
       return NextResponse.json(
         {
           success: true,
           message: isDbSaved
-            ? "Primary brand color updated successfully in database and fallback memory."
-            : "Primary brand color updated successfully in fallback memory (MySQL unavailable).",
+            ? "Settings updated successfully in database and fallback memory."
+            : "Settings updated successfully in fallback memory (MySQL unavailable).",
         },
         { status: 200 }
       );

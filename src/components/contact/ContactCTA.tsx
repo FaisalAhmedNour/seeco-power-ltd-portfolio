@@ -21,7 +21,7 @@ function ArrowRightLongIcon() {
  * featuring a company team photo, bold callout heading, and an email contact button.
  */
 export default function ContactCTA() {
-  const { t } = useLanguage();
+  const { t, contactCTAImagePath } = useLanguage();
 
   return (
     <section id="contact" className="bg-[#FAF9F5] py-20 px-6 font-arone border-t border-gray-100">
@@ -41,7 +41,7 @@ export default function ContactCTA() {
           <div className="flex justify-center lg:col-span-5">
             <div className="relative aspect-4/5 w-full max-w-90 overflow-hidden bg-gray-100 shadow-md rounded-2xl border border-white">
               <Image
-                src="/images/transformer-maintenance.webp"
+                src={contactCTAImagePath || "/images/transformer-maintenance.webp"}
                 alt="SEECO Transformer Engineering and Production Team"
                 fill
                 sizes="(max-width: 768px) 360px, 450px"

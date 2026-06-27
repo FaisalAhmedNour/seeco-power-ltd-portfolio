@@ -11,6 +11,8 @@ interface ContactInfo {
   email: string;
   email2: string;
   phone: string;
+  phone2: string;
+  whatsapp: string;
 }
 
 /**
@@ -29,6 +31,8 @@ export default function DashboardContactSettings() {
     email: "",
     email2: "",
     phone: "",
+    phone2: "",
+    whatsapp: "",
   });
 
   const [loading, setLoading] = useState(true);
@@ -145,19 +149,36 @@ export default function DashboardContactSettings() {
             {activeFormTab === "general" && (
               <div className="space-y-6 animate-fade-in">
                 
-                {/* Phone */}
-                <div className="space-y-2">
-                  <label className="text-[11px] font-extrabold uppercase tracking-wider text-dash-text-muted block">
-                    Official Phone Number
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={info.phone}
-                    onChange={(e) => setInfo({ ...info, phone: e.target.value })}
-                    placeholder="e.g. +88 01714-102859"
-                    className="w-full bg-dash-hover-bg/30 border border-dash-border focus:border-brand-red/30 rounded-xl px-4 py-3 text-[14px] focus:outline-hidden text-dash-text font-semibold"
-                  />
+                {/* Phone Numbers Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Phone 1 */}
+                  <div className="space-y-2">
+                    <label className="text-[11px] font-extrabold uppercase tracking-wider text-dash-text-muted block">
+                      Official Phone Number (Primary)
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={info.phone}
+                      onChange={(e) => setInfo({ ...info, phone: e.target.value })}
+                      placeholder="e.g. +88 01714-102859"
+                      className="w-full bg-dash-hover-bg/30 border border-dash-border focus:border-brand-red/30 rounded-xl px-4 py-3 text-[14px] focus:outline-hidden text-dash-text font-semibold"
+                    />
+                  </div>
+
+                  {/* Phone 2 */}
+                  <div className="space-y-2">
+                    <label className="text-[11px] font-extrabold uppercase tracking-wider text-dash-text-muted block">
+                      Official Phone Number (Secondary)
+                    </label>
+                    <input
+                      type="text"
+                      value={info.phone2}
+                      onChange={(e) => setInfo({ ...info, phone2: e.target.value })}
+                      placeholder="e.g. +88 01818-430308"
+                      className="w-full bg-dash-hover-bg/30 border border-dash-border focus:border-brand-red/30 rounded-xl px-4 py-3 text-[14px] focus:outline-hidden text-dash-text font-semibold"
+                    />
+                  </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -183,13 +204,30 @@ export default function DashboardContactSettings() {
                     </label>
                     <input
                       type="email"
-                      required
                       value={info.email2}
                       onChange={(e) => setInfo({ ...info, email2: e.target.value })}
                       placeholder="e.g. sales@seecopowerlimited.com"
                       className="w-full bg-dash-hover-bg/30 border border-dash-border focus:border-brand-red/30 rounded-xl px-4 py-3 text-[14px] focus:outline-hidden text-dash-text font-semibold"
                     />
                   </div>
+                </div>
+
+                {/* WhatsApp sticky chat widget number */}
+                <div className="space-y-2">
+                  <label className="text-[11px] font-extrabold uppercase tracking-wider text-dash-text-muted block">
+                    WhatsApp Number (for sticky chat widget)
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={info.whatsapp}
+                    onChange={(e) => setInfo({ ...info, whatsapp: e.target.value })}
+                    placeholder="e.g. 8801714102859"
+                    className="w-full bg-dash-hover-bg/30 border border-dash-border focus:border-brand-red/30 rounded-xl px-4 py-3 text-[14px] focus:outline-hidden text-dash-text font-semibold"
+                  />
+                  <p className="text-[11.5px] text-dash-text-muted">
+                    Format: Country code + phone number without any spaces, plus signs, or hyphens (e.g., <strong>8801714102859</strong>).
+                  </p>
                 </div>
 
               </div>

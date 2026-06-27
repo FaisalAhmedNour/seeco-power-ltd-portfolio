@@ -1,10 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import { useLanguage } from "@/context/LanguageContext";
 
 // Specialties transformer types scrolling in the vertical marquee
 // Structure representing English and Bangla translations for specialty transformers.
-interface SpecialtyTransformer {
+export interface SpecialtyTransformer {
   en: string;
   bn: string;
 }
@@ -24,12 +25,18 @@ const SPECIALTY_TRANSFORMERS: SpecialtyTransformer[] = [
   { en: "Shunt Reactor For PV Application", bn: "পিভি অ্যাপ্লিকেশনের জন্য শান্ট রিঅ্যাক্টর" },
 ];
 
+interface MarqueeBandProps {
+  scrollingTexts?: SpecialtyTransformer[];
+}
+
 /**
  * MarqueeBand Component.
  * Renders an industrial showcase banner with a video background,
  * a white brand logo, and a vertically scrolling list of technical specialties.
  */
-export default function MarqueeBand() {
+export default function MarqueeBand({ scrollingTexts }: MarqueeBandProps) {
+  const { logoPath } = useLanguage();
+  const items = scrollingTexts && scrollingTexts.length > 0 ? scrollingTexts : SPECIALTY_TRANSFORMERS;
   return (
     <section
       id="marquee-band"
@@ -56,13 +63,13 @@ export default function MarqueeBand() {
       {/* <div className="absolute inset-0 z-10" /> */}
 
       {/* Split layout grid wrapper */}
-      <div className="relative z-20 mx-auto grid max-w-310 grid-cols-1 md:grid-cols-2 md:min-h-125">
+      <div className="relative z-20 mx-auto grid max-w-310 grid-cols-1 md:grid-cols-2 min-h-125">
 
         {/* Left Column: Brand White Logo Container */}
-        <div className="flex items-center justify-left p-8">
+        <div className="hidden md:flex items-center justify-left p-8">
           <div className="relative h-30 w-full max-w-[320px]">
             <Image
-              src="/images/SEECOI1.png"
+              src={logoPath || "/images/SEECOI1.png"}
               alt="SEECO Transformer White Logo"
               fill
               sizes="(max-width: 768px) 320px, 400px"
@@ -72,13 +79,13 @@ export default function MarqueeBand() {
         </div>
 
         {/* Right Column: Scrolling Marquee Box */}
-        <div className="flex justify-end">
-          <div className="relative h-full w-100 overflow-hidden flex justify-end">
-            <div className="vertical-marquee">
+        <div className="flex justify-center md:justify-end w-full md:w-auto h-125 md:h-auto">
+          <div className="relative h-full w-full max-w-100 overflow-hidden flex justify-center md:justify-end p-4 md:p-0">
+            <div className="vertical-marquee w-full">
 
               {/* Double mapped scrolling items for seamless looping */}
               <div className="marquee-content py-4">
-                {SPECIALTY_TRANSFORMERS.map((item, index) => (
+                {items.map((item, index) => (
                   <div
                     key={`marq-1-${index}`}
                     className="marquee-item text-[17px] font-medium tracking-wide text-white uppercase"
@@ -94,7 +101,7 @@ export default function MarqueeBand() {
                     </div>
                   </div>
                 ))}
-                {SPECIALTY_TRANSFORMERS.map((item, index) => (
+                {items.map((item, index) => (
                   <div
                     key={`marq-2-${index}`}
                     className="marquee-item text-[17px] font-medium tracking-wide text-white uppercase"

@@ -88,7 +88,7 @@ const ABOUT_TRANSLATIONS = {
  * @returns React functional component rendering JSX elements.
  */
 export default function AboutUsPage() {
-  const { language } = useLanguage();
+  const { language, t: tCtx, aboutImagePath } = useLanguage();
   const activeLang = (language === "bn" ? "bn" : "en") as "en" | "bn";
   const t = ABOUT_TRANSLATIONS[activeLang];
 
@@ -130,16 +130,16 @@ export default function AboutUsPage() {
             {/* Left Column: Rich Typography and description */}
             <div className="lg:col-span-7 space-y-6">
               <span className="text-[12px] font-bold text-brand-red uppercase tracking-widest bg-red-50 px-3.5 py-1.5 rounded-full border border-red-100">
-                {t.introSubtitle}
+                {tCtx("about.introSubtitle")}
               </span>
               <h2 className="pt-3 font-kanit text-[32px] md:text-[42px] font-bold text-neutral-900 leading-tight">
-                {t.introTitle}
+                {tCtx("about.introTitle")}
               </h2>
               <p className="text-[15.5px] leading-relaxed text-neutral-600 font-medium">
-                {t.introPara1}
+                {tCtx("about.introPara1")}
               </p>
               <p className="text-[15.5px] leading-relaxed text-neutral-600 font-medium">
-                {t.introPara2}
+                {tCtx("about.introPara2")}
               </p>
             </div>
 
@@ -147,7 +147,7 @@ export default function AboutUsPage() {
             <div className="lg:col-span-5 relative aspect-square w-full overflow-hidden bg-white border border-neutral-200 shadow-md rounded-2xl p-2 group hover:shadow-lg transition-shadow duration-300">
               <div className="relative w-full h-full overflow-hidden rounded-xl bg-neutral-100">
                 <Image
-                  src="/images/Transformers-Be-Maintained.png"
+                  src={aboutImagePath || "/images/Transformers-Be-Maintained.png"}
                   alt="SEECO Substation Assembly and Engineering Team"
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-105"

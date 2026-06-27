@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import PageHeader from "@/components/widgets/PageHeader";
 import { termsOfServiceContent } from "./content";
+import { parseMarkdownToPolicy, PolicyContent } from "@/lib/policyParser";
 
 /**
  * Address / Location pin icon for contact card.
@@ -66,8 +67,13 @@ function ChevronRightIcon() {
  * and translation support for English and Bangla.
  */
 export default function TermsOfServicePage() {
-  const { language } = useLanguage();
-  const data = termsOfServiceContent[language];
+  const { language, t, policies } = useLanguage();
+  const rawMarkdown = policies
+    ? (language === "bn" ? policies.termsBn : policies.termsEn)
+    : "";
+  const data = (rawMarkdown
+    ? parseMarkdownToPolicy(rawMarkdown, language === "bn" ? "শর্তাবলী" : "Terms of Service")
+    : termsOfServiceContent[language]) as PolicyContent;
   const [activeSection, setActiveSection] = useState<string>("");
 
   // Update HTML Document Title dynamically based on active language context
@@ -205,16 +211,22 @@ export default function TermsOfServicePage() {
                                 let linkHref = "";
                                 const val = item.split(":");
                                 const label = val[0] + ":";
-                                const desc = val.slice(1).join(":");
+                                let desc = val.slice(1).join(":");
 
                                 if (item.toLowerCase().includes("phone")) {
                                   icon = <PhoneIcon />;
-                                  linkHref = "tel:+8801714102859";
+                                  desc = t("contactInfo.phone") + (t("contactInfo.phone2") ? ` / ${t("contactInfo.phone2")}` : "");
+                                  linkHref = `tel:${t("contactInfo.phone")}`;
                                 } else if (item.toLowerCase().includes("email")) {
                                   icon = <EmailIcon />;
-                                  linkHref = "mailto:info@seecopowerlimited.com";
+                                  desc = t("contactInfo.email");
+                                  linkHref = `mailto:${t("contactInfo.email")}`;
+                                } else if (item.toLowerCase().includes("office") || item.toLowerCase().includes("address")) {
+                                  icon = <AddressIcon />;
+                                  desc = t("contactInfo.address");
                                 } else if (item.toLowerCase().includes("website")) {
                                   icon = <GlobeIcon />;
+                                  desc = "www.seecopowerlimited.com";
                                   linkHref = "https://www.seecopowerlimited.com";
                                 }
 

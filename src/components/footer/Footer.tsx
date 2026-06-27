@@ -74,7 +74,7 @@ function FooterPhoneIcon() {
  * and a fully animated SVG global shipping destination map.
  */
 export default function Footer() {
-  const { t } = useLanguage();
+  const { t, logoPath } = useLanguage();
   const pathname = usePathname();
   const isHome = pathname === "/";
 
@@ -128,12 +128,12 @@ export default function Footer() {
 
       <div className="mx-auto max-w-310">
 
-        <div className="grid grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 xl:grid-cols-5 gap-8">
           {/* Core links and information grid */}
-          <div className="col-span-2 grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-2">
+          <div className="xl:col-span-2 grid grid-cols-1 gap-5 sm:grid-cols-2">
 
             {/* Column 1: Quick Links */}
-            <div className="border-b border-gray-150 pb-5">
+            <div className="border-b border-gray-150 pb-5 text-center sm:text-left">
               <h4 className="font-kanit text-[20px] font-bold text-neutral-900 mb-6">
                 {t("footer.quickLinks")}
               </h4>
@@ -146,7 +146,7 @@ export default function Footer() {
             </div>
 
             {/* Column 2: Products */}
-            <div className="border-b border-gray-150 pb-5">
+            <div className="border-b border-gray-150 pb-5 text-center sm:text-left">
               <h4 className="font-kanit text-[20px] font-bold text-neutral-900 mb-6">
                 {t("footer.productsHeader")}
               </h4>
@@ -163,7 +163,7 @@ export default function Footer() {
             </div>
 
             {/* Column 3: Support & Policies */}
-            <div>
+            <div className="text-center sm:text-left">
               <h4 className="font-kanit text-[20px] font-bold text-neutral-900 mb-6">
                 {t("footer.support")}
               </h4>
@@ -176,21 +176,32 @@ export default function Footer() {
             </div>
 
             {/* Column 4: Contact Info & Brand Logo */}
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-6 items-center sm:items-start text-center sm:text-left">
               <Image
-                src="/images/SEECOI1.png"
+                src={logoPath || "/images/SEECOI1.png"}
                 alt="SEECO Footer Brand Logo"
                 width={180}
                 height={45}
                 className="object-contain h-auto"
               />
 
-              <ul className="text-[13px] text-neutral-700">
-                <li className="flex items-center gap-3">
-                  <FooterPhoneIcon />
-                  <a href="tel:+8801818430308" className="hover:text-brand-red">{t("contactInfo.phone")}</a>
+              <ul className="text-[13px] text-neutral-700 w-full">
+                <li className="flex items-start gap-3 justify-center sm:justify-start text-left">
+                  <div className="mt-0.5">
+                    <FooterPhoneIcon />
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <a href={`tel:${t("contactInfo.phone")}`} className="hover:text-brand-red leading-none">
+                      {t("contactInfo.phone")}
+                    </a>
+                    {t("contactInfo.phone2") && (
+                      <a href={`tel:${t("contactInfo.phone2")}`} className="hover:text-brand-red leading-none">
+                        {t("contactInfo.phone2")}
+                      </a>
+                    )}
+                  </div>
                 </li>
-                <li className="flex items-start gap-3">
+                <li className="flex items-start gap-3 justify-center sm:justify-start text-left">
                   <div className="mt-0.5">
                     <FooterEnvelopeIcon />
                   </div>
@@ -200,17 +211,19 @@ export default function Footer() {
                     </a>
                   </div>
                 </li>
-                <li className="flex items-start gap-3">
-                  <div className="mt-0.5">
-                    <FooterEnvelopeIcon />
-                  </div>
-                  <div className="flex flex-col gap-0.5">
-                    <a href={`mailto:${t("contactInfo.email2")}`} className="hover:text-brand-red leading-none">
-                      {t("contactInfo.email2")}
-                    </a>
-                  </div>
-                </li>
-                <li className="flex items-start gap-3">
+                {t("contactInfo.email2") && (
+                  <li className="flex items-start gap-3 justify-center sm:justify-start text-left">
+                    <div className="mt-0.5">
+                      <FooterEnvelopeIcon />
+                    </div>
+                    <div className="flex flex-col gap-0.5">
+                      <a href={`mailto:${t("contactInfo.email2")}`} className="hover:text-brand-red leading-none">
+                        {t("contactInfo.email2")}
+                      </a>
+                    </div>
+                  </li>
+                )}
+                <li className="flex items-start gap-3 justify-center sm:justify-start text-left">
                   <FooterLocationPinIcon />
                   <span className="leading-tight">
                     {t("contactInfo.address")}
@@ -221,7 +234,7 @@ export default function Footer() {
           </div>
 
           {/* Global Shipment interactive Map container */}
-          <div className="text-center col-span-3 flex items-center justify-center">
+          <div className="text-center xl:col-span-3 flex items-center justify-center">
             {/* <h4 className="font-kanit text-[22px] font-bold text-neutral-900 mb-2">
               Global Shipment Reach
             </h4>

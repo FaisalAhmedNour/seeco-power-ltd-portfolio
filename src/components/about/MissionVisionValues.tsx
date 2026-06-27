@@ -69,13 +69,17 @@ const TRANSLATIONS: Record<"en" | "bn", MissionVisionValuesTranslations> = {
  * @returns React functional component rendering JSX elements.
  */
 export default function MissionVisionValues() {
-  const { language } = useLanguage();
+  const { language, t: tCtx, tArray } = useLanguage();
   const activeLang = (language === "bn" ? "bn" : "en") as "en" | "bn";
   const t = TRANSLATIONS[activeLang];
 
+  const missionPoints = tArray("missionVision.missionPoints").length > 0 ? tArray("missionVision.missionPoints") : t.missionPoints;
+  const visionText = tCtx("missionVision.visionText") !== "missionVision.visionText" ? tCtx("missionVision.visionText") : t.visionText;
+  const valuesPoints = tArray("missionVision.valuesPoints").length > 0 ? tArray("missionVision.valuesPoints") : t.valuesPoints;
+
   return (
     <section
-      className="py-20 px-6 pb-32 relative overflow-hidden bg-cover bg-center bg-no-repeat"
+      className="pt-24 pb-20 px-6 lg:pb-32 relative overflow-hidden bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: "url('/images/turkish-transfomr-maintance-1.jpg')" }}
     >
       {/* Semi-transparent overlay to ensure clarity and bright look */}
@@ -84,7 +88,7 @@ export default function MissionVisionValues() {
       <div className="relative z-10 mx-auto max-w-310">
 
         {/* Main Section Header with responsive line break */}
-        <div className="text-center mb-">
+        <div className="text-center mb-24 md:mb-16">
           <h2 className="font-kanit text-[36px] md:text-[48px] font-semibold text-[#801818] tracking-tight leading-[1.1]">
             {language === "bn" ? (
               <>
@@ -99,10 +103,10 @@ export default function MissionVisionValues() {
         </div>
 
         {/* Cards Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-14 lg:gap-20 items-end">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-24 lg:gap-20 items-end">
 
           {/* Mission Card */}
-          <div className="z-10 relative flex flex-col justify-between bg-[#ec2427] rounded-4xl pt-12 px-4 pb-6 shadow-xl text-center group min-h-125">
+          <div className="z-10 relative flex flex-col justify-between bg-[#ec2427] rounded-4xl pt-12 px-4 pb-6 shadow-xl text-center group min-h-auto lg:min-h-125">
             <div className="-mt-18">
               {/* Top Circular Badge */}
               <div className="w-20 h-20 rounded-full border-0 border-white bg-[#ec2427] flex items-center justify-center shadow-lg absolute -top-16 left-1/2 -translate-x-1/2 z-30 group-hover:scale-110 transition-transform duration-300">
@@ -116,9 +120,9 @@ export default function MissionVisionValues() {
               </div>
 
               {/* Inner White Card */}
-              <div className="bg-white rounded-3xl p-3 md:p-4 pt-10 md:pt-16 flex-1 flex flex-col justify-start text-left shadow-sm h-112.5">
+              <div className="bg-white rounded-3xl p-3 md:p-4 pt-10 md:pt-16 flex-1 flex flex-col justify-start text-left shadow-sm h-auto lg:h-112.5">
                 <ul className="space-y-2">
-                  {t.missionPoints.map((point, index) => (
+                  {missionPoints.map((point, index) => (
                     <li key={index} className="flex items-start gap-3">
                       <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-[#1e8d49] text-white mt-1 shadow-sm">
                         <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4.5" strokeLinecap="round" strokeLinejoin="round">
@@ -140,7 +144,7 @@ export default function MissionVisionValues() {
             </span>
 
             {/* Speech Bubble Fold Tail */}
-            <div className="absolute -bottom-11.25 right-7 w-0 h-0 border-t-45 border-t-[#c6252d] border-r-80 border-r-transparent -z-10 rounded-bl-md" />
+            <div className="hidden lg:block absolute -bottom-11.25 right-7 w-0 h-0 border-t-45 border-t-[#c6252d] border-r-80 border-r-transparent -z-10 rounded-bl-md" />
 
             {/* Connection Pointer Arrow to Next Card (Desktop only) */}
             <div className="hidden lg:block absolute -right-8 top-1/2 -translate-y-1/2 z-20">
@@ -151,7 +155,7 @@ export default function MissionVisionValues() {
           </div>
 
           {/* Vision Card */}
-          <div className="relative flex flex-col justify-between bg-[#29944c] rounded-4xl pt-12 px-4 pb-6 shadow-xl text-center group min-h-62.5 lg:translate-y-8">
+          <div className="relative flex flex-col justify-between bg-[#29944c] rounded-4xl pt-12 px-4 pb-6 shadow-xl text-center group min-h-auto lg:min-h-62 lg:translate-y-8">
             <div className="-mt-18">
               {/* Top Circular Badge */}
               <div className="w-20 h-20 rounded-full border-0 border-white bg-[#29944c] flex items-center justify-center shadow-lg absolute -top-16 left-1/2 -translate-x-1/2 z-30 group-hover:scale-110 transition-transform duration-300">
@@ -165,9 +169,9 @@ export default function MissionVisionValues() {
               </div>
 
               {/* Inner White Card */}
-              <div className="bg-white rounded-3xl p-3 md:p-4 pt-10 md:pt-16 flex-1 flex flex-col justify-center text-center shadow-sm h-50">
+              <div className="bg-white rounded-3xl p-3 md:p-4 pt-10 md:pt-16 flex-1 flex flex-col justify-center text-center shadow-sm h-auto lg:h-50">
                 <p className="text-[16px] leading-relaxed text-neutral-800 font-medium">
-                  {t.visionText}
+                  {visionText}
                 </p>
               </div>
             </div>
@@ -178,7 +182,7 @@ export default function MissionVisionValues() {
             </span>
 
             {/* Speech Bubble Fold Tail */}
-            <div className="absolute -bottom-11.25 right-7 w-0 h-0 border-t-45 border-t-[#1f7338] border-r-80 border-r-transparent -z-10 rounded-bl-md" />
+            <div className="hidden lg:block absolute -bottom-11.25 right-7 w-0 h-0 border-t-45 border-t-[#1f7338] border-r-80 border-r-transparent -z-10 rounded-bl-md" />
 
             {/* Connection Pointer Arrow to Next Card (Desktop only) */}
             <div className="hidden lg:block absolute -right-8 top-1/2 -translate-y-1/2 z-20">
@@ -189,7 +193,7 @@ export default function MissionVisionValues() {
           </div>
 
           {/* Values Card */}
-          <div className="relative flex flex-col justify-between bg-[#ec2427] rounded-4xl pt-12 px-4 pb-6 shadow-xl text-center group min-h-125">
+          <div className="relative flex flex-col justify-between bg-[#ec2427] rounded-4xl pt-12 px-4 pb-6 shadow-xl text-center group min-h-auto lg:min-h-125">
             <div className="-mt-18">
               {/* Top Circular Badge (Green to match the image reference) */}
               <div className="w-20 h-20 rounded-full border-0 border-white bg-[#ec2427] flex items-center justify-center shadow-lg absolute -top-16 left-1/2 -translate-x-1/2 z-30 group-hover:scale-110 transition-transform duration-300">
@@ -203,9 +207,9 @@ export default function MissionVisionValues() {
               </div>
 
               {/* Inner White Card */}
-              <div className="bg-white rounded-3xl p-3 md:p-4 pt-10 md:pt-16 flex-1 flex flex-col justify-start text-left shadow-sm h-112.5">
+              <div className="bg-white rounded-3xl p-3 md:p-4 pt-10 md:pt-16 flex-1 flex flex-col justify-start text-left shadow-sm h-auto lg:h-112.5">
                 <ul className="space-y-2">
-                  {t.valuesPoints.map((point, index) => (
+                  {valuesPoints.map((point, index) => (
                     <li key={index} className="flex items-start gap-3">
                       <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-[#1e8d49] text-white mt-1 shadow-sm">
                         <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4.5" strokeLinecap="round" strokeLinejoin="round">
@@ -227,7 +231,7 @@ export default function MissionVisionValues() {
             </span>
 
             {/* Speech Bubble Fold Tail */}
-            <div className="absolute -bottom-11.25 right-7 w-0 h-0 border-t-45 border-t-[#c6252d] border-r-80 border-r-transparent -z-10 rounded-bl-md" />
+            <div className="hidden lg:block absolute -bottom-11.25 right-7 w-0 h-0 border-t-45 border-t-[#c6252d] border-r-80 border-r-transparent -z-10 rounded-bl-md" />
 
             {/* Connection Pointer Arrow (Desktop only) */}
             <div className="hidden lg:block absolute -right-8 top-1/2 -translate-y-1/2 z-20">
